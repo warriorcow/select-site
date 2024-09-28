@@ -1,9 +1,13 @@
 <script setup lang="ts">
+  import { useMenuStore } from '~/stores/menu';
+
   withDefaults(defineProps<{
     color?: 'black' | 'white'
   }>(), {
     color: 'white'
   });
+
+  const { toggleMenu } = useMenuStore();
 </script>
 
 <template>
@@ -25,6 +29,7 @@
     <UiButton
       color="primary"
       label="menu"
+      @click="toggleMenu"
     />
   </header>
 </template>

@@ -4,7 +4,7 @@
 <template>
   <div class="h-dvh grid grid-rows-1">
     <Header />
-    <UiSidedrawer />
+    <Sidemenu />
     <main>
       <slot />
     </main>

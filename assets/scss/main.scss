@@ -1,5 +1,9 @@
 @import "fonts";
 
+body {
+  overflow-x: hidden;
+}
+
 img {
   user-drag: none;
   -webkit-user-drag: none;

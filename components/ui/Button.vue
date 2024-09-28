@@ -15,8 +15,8 @@
     lg: 'text-[25px]',
   } as const;
 
-  type ButtonColorKeys = keyof typeof ButtonColors;
-  type ButtonSizesKeys = keyof typeof ButtonSizes;
+  export type ButtonColorKeys = keyof typeof ButtonColors;
+  export type ButtonSizesKeys = keyof typeof ButtonSizes;
 
   const props = withDefaults(defineProps<{
     label: string;
@@ -52,7 +52,7 @@
       after:w-full
       after:h-px
       after:left-0
-      after:bottom-[-1px]
+      after:bottom-0
       after:scale-x-0
       after:origin-bottom-left
       after:transition
