@@ -35,7 +35,7 @@
   import { ref } from 'vue';
   import type { ButtonSizesKeys } from '~/components/ui/Button.vue';
 
-  const props = withDefaults(defineProps<{
+  withDefaults(defineProps<{
     label: string;
     nested?: any[]
     size?: ButtonSizesKeys

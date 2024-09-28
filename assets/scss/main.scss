@@ -1,7 +1,11 @@
 @import "fonts";
+html {
+  padding: env(safe-area-inset);
+  overflow: hidden;
+}
 
 body {
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 img {

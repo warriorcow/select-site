@@ -3,10 +3,7 @@
 
 <template>
   <div class="h-dvh grid grid-rows-1">
-    <Header
-      with-logo
-      theme="dark"
-    />
+    <Header theme="light" />
     <Sidemenu />
     <main>
       <slot />

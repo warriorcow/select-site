@@ -5,7 +5,21 @@
 </script>
 
 <template>
-  <UiSidedrawer class="pt-[75px] pb-[46px] pl-[58px] flex flex-col items-start gap-y-7 overflow-auto">
+  <UiSidedrawer 
+    class="
+      pt-[75px] 
+      pb-[46px] 
+      pl-[58px] 
+      flex 
+      flex-col 
+      items-start 
+      gap-y-7
+      overflow-hidden
+      max-sm:pt-[50px]
+      max-sm:pl-[10px]
+      max-sm:gap-y-[22px]
+    "
+  >
     <template
       v-for="(item, index) in menu"
       :key="index"
@@ -15,17 +29,18 @@
         :label="item.label"
         :nested="item.items"
       >
-        <template #label="{ label, onClick }">
+        <template #label="{ label, onClick, isOpen }">
           <UiButton
             size="lg"
             :label="label"
-            is-underline-hover
+            :is-underline="isOpen"
+            :is-underline-hover="!isOpen"
             is-uppercase
             @click="onClick"
           />
         </template>
         <template #content="slotScope">
-          <div class="flex flex-col gap-y-6 pt-3.5">
+          <div class="flex flex-col gap-y-6 pt-3.5 max-sm:gap-y-4">
             <UiAccordion
               v-for="(nest, nest_index) in slotScope.nested"
               :key="nest_index"
@@ -57,12 +72,12 @@
                 </UiButton>
               </template>
               <template #content="slotScopeLevel">
-                <div class="flex flex-col gap-y-3 pt-3.5">
+                <div class="flex flex-col gap-y-3 pt-3.5 max-sm:pb-[5px]">
                   <UiButton
                     v-for="(button, button_index) in slotScopeLevel.nested"
                     :key="button_index"
                     :to="button.to"
-                    class="hover:text-accent-400 transition-colors"
+                    class="hover:text-accent-400 transition-colors max-sm:text-[12px]"
                     size="xxs"
                     :label="button.label"
                   />
@@ -87,6 +102,7 @@
         label="@select_mgmt"
         to="@select_mgmt"
         size="xs"
+        class="max-sm:text-[12px]"
       />
     </div>
 

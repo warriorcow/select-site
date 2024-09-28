@@ -15,19 +15,21 @@
           h-dvh
           w-full
           max-w-[480px]
-          absolute
+          fixed
           right-0
           top-0
           z-20
           bg-white
           transition-transform
+          overflow-hidden
         "
       >
         <button
-          class="absolute top-5 right-5 p-3"
+          class="absolute top-5 right-5 p-3 max-sm:py-2.5 max-sm:px-4 max-sm:top-0 max-sm:right-0"
           @click="toggleMenu"
         >
           <svg
+            class="max-sm:w-[17px] max-sm:h-[17px]"
             width="22"
             height="22"
             viewBox="0 0 22 22"
@@ -54,6 +56,7 @@
 <style scoped>
   .slide-enter-from,
   .slide-leave-to {
+    overflow: hidden;
     transform: translateX(100%);
   }
 </style>

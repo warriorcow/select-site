@@ -8,11 +8,11 @@
   } as const;
 
   const ButtonSizes = {
-    xxs: 'text-sm',
-    xs: 'text-base leading-none',
+    xxs: 'text-sm max-xl:text-xs max-sm:text-[10px] max-sm:leading-[14px]',
+    xs: 'text-base leading-none max-xl:text-xs max-sm:text-[10px] max-sm:leading-[14px]',
     sm: 'text-lg leading-none',
     md: 'text-xl leading-none',
-    lg: 'text-[25px] leading-none',
+    lg: 'text-[25px] leading-none max-sm:text-[22px]',
   } as const;
 
   export type ButtonColorKeys = keyof typeof ButtonColors;
@@ -44,6 +44,7 @@
       items-center
       text-left
       relative
+      whitespace-nowrap
     "
     :class="[
       ButtonColors[color], 
