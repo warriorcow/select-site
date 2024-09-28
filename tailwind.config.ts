@@ -2,9 +2,13 @@ import type { Config } from 'tailwindcss';
 
 export default <Partial<Config>>{
   theme: {
+
     extend: {
       fontFamily: {
         sans: ['Geologica', 'sans-serif'],
+      },
+      fontSize: {
+        sm: ['14px', '16px'],
       },
       colors: {
         'accent': {

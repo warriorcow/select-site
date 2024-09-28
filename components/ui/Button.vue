@@ -9,10 +9,10 @@
 
   const ButtonSizes = {
     xxs: 'text-sm',
-    xs: 'text-base',
-    sm: 'text-lg',
-    md: 'text-xl',
-    lg: 'text-[25px]',
+    xs: 'text-base leading-none',
+    sm: 'text-lg leading-none',
+    md: 'text-xl leading-none',
+    lg: 'text-[25px] leading-none',
   } as const;
 
   export type ButtonColorKeys = keyof typeof ButtonColors;
@@ -20,10 +20,12 @@
 
   const props = withDefaults(defineProps<{
     label: string;
-    link?: boolean;
     to?: string | null;
     color?: ButtonColorKeys;
     size?: ButtonSizesKeys;
+    isUnderline?: boolean;
+    isUnderlineHover?: boolean;
+    isUppercase?: boolean;
   }>(), {
     to: null,
     color: 'secondary',
@@ -37,28 +39,42 @@
   <component
     :is="buttonType"
     :to="to"
-    :class="[
-      ButtonColors[color], 
-      ButtonSizes[size], 
-      link && 'after:scale-x-100'
-    ]"
     class="
-      leading-none
+      flex
+      items-center
       text-left
       relative
-      uppercase
+    "
+    :class="[
+      ButtonColors[color], 
+      ButtonSizes[size],
+      isUnderline && 'button--underline',
+      isUnderlineHover && 'button--underline button--underline-hover',
+      isUppercase && 'uppercase'
+    ]"
+  >
+    {{ label }}
+    <slot name="after" />
+  </component>
+</template>
+
+<style lang="scss" scoped>
+  .button--underline {
+    @apply
       after:content-['']
       after:absolute
       after:w-full
       after:h-px
       after:left-0
       after:bottom-0
-      after:scale-x-0
+      after:scale-x-100
       after:origin-bottom-left
+  }
+
+  .button--underline-hover {
+    @apply
       after:transition
+      after:scale-x-0
       hover:after:scale-x-100
-    "
-  >
-    {{ label }}
-  </component>
-</template>
+  }
+</style>

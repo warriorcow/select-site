@@ -2,13 +2,13 @@ import { defineStore } from 'pinia';
 
 export const useMenuStore = defineStore('menu', {
   state: () => ({
-    isOpen: true,
+    isOpen: false,
     menu: [
       {
-        label: 'women',
+        label: 'Women',
         items: [
           {
-            label: 'international',
+            label: 'International',
             items: [
               {
                 label: 'New Faces',
@@ -19,7 +19,7 @@ export const useMenuStore = defineStore('menu', {
                 to: '/2'
               },
               {
-                label: 'direct',
+                label: 'Direct',
                 to: '/3'
               }
             ]
@@ -36,7 +36,7 @@ export const useMenuStore = defineStore('menu', {
                 to: '/5'
               },
               {
-                label: 'direct',
+                label: 'Direct',
                 to: '/6'
               }
             ]
@@ -44,10 +44,10 @@ export const useMenuStore = defineStore('menu', {
         ]
       },
       {
-        label: 'men',
+        label: 'Men',
         items: [
           {
-            label: 'international',
+            label: 'International',
             items: [
               {
                 label: 'New Faces',
@@ -58,7 +58,7 @@ export const useMenuStore = defineStore('menu', {
                 to: '/2'
               },
               {
-                label: 'direct',
+                label: 'Direct',
                 to: '/3'
               }
             ]
@@ -75,7 +75,7 @@ export const useMenuStore = defineStore('menu', {
                 to: '/5'
               },
               {
-                label: 'direct',
+                label: 'Direct',
                 to: '/6'
               }
             ]
@@ -83,15 +83,15 @@ export const useMenuStore = defineStore('menu', {
         ]
       },
       {
-        label: 'become a model',
+        label: 'Become a model',
         to: '/model'
       },
       {
-        label: 'about',
+        label: 'About',
         to: '/about'
       },
       {
-        label: 'contact us',
+        label: 'Contact us',
         to: '/contact'
       }
     ]

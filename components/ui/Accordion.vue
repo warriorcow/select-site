@@ -1,10 +1,12 @@
 <template>
   <div class="accordion">
-    <UiButton
+    <slot
+      name="label"
       :label="label"
-      :size="size"
-      @click="toggle"
+      :on-click="toggle"
+      :is-open="isOpen"
     />
+
     <transition
       @before-enter="beforeEnter"
       @enter="enter"
@@ -17,52 +19,13 @@
           overflow-hidden
           transition-[height]
         "
-        style="transition-duration: 500ms"
       >
-
-        <template
-          v-if="isNested"
-        >
-          <template
-            v-for="(item, index) in nested"
-            :key="index"
-          >
-            <div
-              v-if="item.items?.length"
-              class="
-                pt-5
-                overflow-hidden
-                flex
-                flex-col
-                gap-y-6
-                items-start
-              "
-            >
-              <UiAccordion
-                size="sm"
-                :label="item.label"
-                :nested="item.items"
-              />
-            </div>
-            <div
-              v-else-if="item.to"
-              class="
-                flex
-                flex-col
-                first:pt-5
-                pt-3
-                overflow-hidden
-                items-start
-              "
-            >
-              <UiButton
-                size="xxs"
-                :to="item.to"
-                :label="item.label"
-              />
-            </div>
-          </template>
-        </template>
+        <div class="flex flex-col overflow-hidden">
+          <slot
+            name="content"
+            :nested="nested"
+          />
+        </div>
       </div>
     </transition>
   </div>
@@ -82,7 +45,6 @@
 
   const isOpen = ref(false);
   const content = ref<HTMLElement | null>(null);
-  const isNested = computed(() => props.nested?.length || false);
 
   const toggle = () => {
     isOpen.value = !isOpen.value;
