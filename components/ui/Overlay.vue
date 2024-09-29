@@ -8,24 +8,27 @@
   <Transition name="fade">
     <div
       v-if="isVisible"
-      class="
-        absolute
-        top-0
-        left-0
-        bottom-0
-        right-0
-        bg-black
-        opacity-50
-        transition-opacity
-        z-10
-      "
+      class="overlay"
     />
   </Transition>
 </template>
 
-<style scoped>
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
+<style lang="scss" scoped>
+  .overlay {
+    @apply
+      fixed
+      top-0
+      left-0
+      bottom-0
+      right-0
+      bg-secondary
+      opacity-50
+      transition-opacity
+      z-40;
+  }
+
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+  }
 </style>

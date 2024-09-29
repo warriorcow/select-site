@@ -9,7 +9,7 @@ export function useApi<T>(
   const finalUrl = typeof url === 'function' ? url() : url;
   const apiUrl =
     config.public.useFakeApi === 'true'
-      ? `/api/fake/${finalUrl}` // Фейковый API
+      ? `${config.public.fakeApiUrl}${finalUrl}` // Фейковый API
       : `${config.public.apiUrl}/${finalUrl}`; // Реальный API
   return useFetch(apiUrl, {
     ...options,
