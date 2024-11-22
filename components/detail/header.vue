@@ -53,24 +53,8 @@
         // canplaythroughVideo.value = true;
         // videoRef.value.play();
       }, 1000)
-
-
     });
   });
-
-  // watch(() => canplaythroughVideo.value, (value) => {
-  //   if (value && hasVideo.value) {
-  //     videoRef.value.play();
-  //   }
-  // });
-
-  // watch(() => targetIsVisible.value, (isVisible: boolean) => {
-  //   if (isVisible) {
-  //     videoRef.value?.play();
-  //   } else {
-  //     videoRef.value?.pause();
-  //   }
-  // });
 
 </script>
 

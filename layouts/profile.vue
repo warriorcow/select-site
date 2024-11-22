@@ -12,7 +12,9 @@
     />
     <Sidemenu />
     <main class="flex flex-col h-full">
-      <slot />
+      <Suspense>
+        <slot />
+      </Suspense>
     </main>
     <Footer class="mt-auto" />
   </div>

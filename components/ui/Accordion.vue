@@ -1,9 +1,16 @@
 <template>
   <div
     class="accordion"
-    :class="[isAbsolute && 'accordion--absolute']"
+    :class="[
+      isAbsolute && 'accordion--absolute'
+    ]"
   >
-    <div class="flex w-full">
+    <div
+      class="flex w-full relative"
+      :class="[
+        hasArrow && 'accordion--arrow'
+      ]"
+    >
       <slot
         v-if="hasLabel"
         name="label"
@@ -22,8 +29,8 @@
   
       <div
         v-if="hasArrow"
-        class="flex items-center px-2.5 cursor-pointer transition origin-center relative"
-        :class="[isOpen && 'rotate-180']"
+        class="flex justify-start items-center px-2.5 cursor-pointer transition origin-center absolute right-0 h-full"
+        :class="[isOpen && '-scale-y-100']"
         @click="toggle"
       >
         <SvgoArrow
@@ -137,7 +144,7 @@
 
     &__wrapper {
       @apply
-        overflow-hidden
+        //overflow-hidden
         w-full
         transition-[height];
     }
@@ -159,6 +166,10 @@
       .accordion__content {
         @apply overflow-visible;
       }
+    }
+
+    &--arrow {
+      @apply pr-8;
     }
   }
 </style>

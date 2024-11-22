@@ -24,7 +24,7 @@
       bg-secondary
       opacity-50
       transition-opacity
-      z-40;
+      z-50;
   }
 
   .fade-enter-from,

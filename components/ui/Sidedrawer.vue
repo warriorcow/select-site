@@ -40,7 +40,7 @@
       fixed
       right-0
       top-0
-      z-50
+      z-[60]
       bg-primary
       transition-transform;
 

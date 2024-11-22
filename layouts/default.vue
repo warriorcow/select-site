@@ -11,7 +11,9 @@
     />
     <Sidemenu />
     <main class="flex flex-col h-full pt-5 max-tablet:pt-[14px] max-mobile:pt-[30px] px-[30px] max-tablet:px-[40px] max-mobile:px-[10px]">
-      <slot />
+      <Suspense>
+        <slot />
+      </Suspense>
     </main>
     <Footer class="" />
   </div>

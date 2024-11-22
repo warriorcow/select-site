@@ -31,8 +31,8 @@
   const toggleVisibleCategories = () => (isVisibleCategories.value = !isVisibleCategories.value);
 
   const onMouseLeave = () => {
-    isVisibleCategories.value = false;
-    isHovered.value = false;
+    // isVisibleCategories.value = false;
+    // isHovered.value = false;
   };
 
   onMounted(() => {
@@ -43,7 +43,7 @@
       } else {
         currentImageIndex.value++;
       }
-    }, 5000);
+    }, 2000000000000000);
   });
 
   onBeforeUnmount(() => {
@@ -100,12 +100,12 @@
         >
           <template #label="{ label, isOpen }">
             <UiButton
+              class="ml-[0.7rem] max-tablet:ml-[1.3rem] max-mobile:ml-[1.5rem]"
               :size="buttonSize"
               :label="label"
               :to="localePath(`/models${item.url}`)"
               :is-underline="isOpen"
               :is-underline-hover="!isOpen"
-              is-center
             />
           </template>
           <template #content>
@@ -128,7 +128,7 @@
 
 <style scoped lang="scss">
 .category-card {
-  @apply relative h-full min-h-[700px] max-mobile:h-[364px] w-full flex items-center justify-center bg-top bg-cover;
+  @apply relative h-full min-h-[700px] max-mobile:h-[364px] w-full flex items-center justify-center bg-top bg-cover bg-[#d3d3d3];
 
   &__cover {
     @apply absolute top-0 left-0 w-full h-full;

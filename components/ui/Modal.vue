@@ -29,7 +29,7 @@
     <Transition name="fade">
       <div
         v-if="isVisible"
-        class="flex justify-center items-center fixed inset-0 z-40 max-mobile:overflow-auto max-mobile:py-10 max-mobile:items-start"
+        class="flex justify-center items-center fixed inset-0 z-[60] max-mobile:overflow-auto max-mobile:py-10 max-mobile:items-start"
       >
         <Transition
           mode="out-in"

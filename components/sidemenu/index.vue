@@ -23,7 +23,7 @@
         :nested="item.children"
       >
         <template #content="slotScope">
-          <div class="flex flex-col gap-y-6 pt-3.5">
+          <div class="flex flex-col items-start gap-y-6 pt-3.5">
             <UiAccordion
               v-for="(nest, nest_index) in slotScope.nested"
               :key="nest_index"

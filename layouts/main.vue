@@ -6,7 +6,9 @@
     <Header theme="light" />
     <Sidemenu />
     <main>
-      <slot />
+      <Suspense>
+        <slot />
+      </Suspense>
     </main>
     <Footer />
   </div>
