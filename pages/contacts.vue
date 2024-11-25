@@ -44,7 +44,7 @@
         v-text="data.title.rendered"
       />
 
-      <div class="flex flex-wrap gap-x-[90px] max-mobile:gap-x-[18px] gap-y-8 max-mobile:gap-y-[40px] justify-start mt-[75px] max-mobile:mt-8">
+      <div class="flex flex-wrap max-w-[1000px] gap-x-[90px] max-mobile:gap-x-[18px] gap-y-8 max-mobile:gap-y-[40px] justify-start mt-[75px] max-mobile:mt-8">
         <div
           v-for="(category, index_category) in data.acf.list"
           :key="index_category"
