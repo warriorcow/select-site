@@ -11,6 +11,14 @@
   const isRuLocale = computed(() => locale.value === 'ru');
 
   onClickOutside(tooltipPopoverRef, () => (isVisibleTooltip.value = false));
+
+  onMounted(() => {
+    document.addEventListener('keyup', e => {
+      if(e.key === 'Escape') {
+        isVisibleTooltip.value = false;
+      }
+    });
+  });
 </script>
 
 <template>

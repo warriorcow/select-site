@@ -11,14 +11,6 @@
 
   const phoneIsValid = ref<boolean | null>(null);
 
-  onMounted(() => {
-    document.addEventListener('keyup', e => {
-      if(e.key === 'Escape') {
-        closeCallbackModal();
-      }
-    });
-  });
-
   function checkValidNumber(isValid: boolean) {
     phoneIsValid.value = isValid;
   }
@@ -37,7 +29,7 @@
         >
           <div
             v-if="!isSubmitted"
-            class="w-full max-w-[682px] bg-primary relative z-50 mx-2.5 overflow-auto"
+            class="w-full max-w-[682px] bg-primary relative z-[60] mx-2.5 overflow-auto"
           >
             <SvgoCross
               class="absolute top-[15px] right-[15px] cursor-pointer"
@@ -229,7 +221,7 @@
           </div>
           <div
             v-else
-            class="w-full max-w-[560px] py-[90px] px-5 bg-primary relative z-50"
+            class="w-full max-w-[560px] py-[90px] px-5 bg-primary relative z-[60]"
           >
             <div class="max-w-[360px] mx-auto text-center">
               <div

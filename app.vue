@@ -3,6 +3,7 @@
   import { useMenuStore } from '~/stores/menu';
   import { useNuxtApp } from '#app';
   import { useI18n } from 'vue-i18n';
+  import {useCallbackModalStore} from '~/stores/callback-modal';
 
   definePageMeta({
     layout: 'default',
@@ -18,6 +19,8 @@
   const { finalizePendingLocaleChange, locale } = useI18n();
   const { immediateLocale } = storeToRefs(useWindowStore());
   const { setBreakpoint, setToken } = useWindowStore();
+  const { closeCallbackModal } = useCallbackModalStore();
+  const { closeMenu } =  useMenuStore();
 
   if (import.meta.server) {
     immediateLocale.value = locale.value;
@@ -40,6 +43,15 @@
   const onBeforeLeave = async () => {
     pageIsVisible.value = false;
   };
+
+  onMounted(() => {
+    document.addEventListener('keyup', e => {
+      if(e.key === 'Escape') {
+        closeCallbackModal();
+        closeMenu();
+      }
+    });
+  });
 
   watch($viewport.breakpoint, (newBreakpoint) => {
     setBreakpoint(newBreakpoint);
