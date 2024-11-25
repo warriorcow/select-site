@@ -43,17 +43,10 @@
   });
 
   onMounted(() => {
-    if (!hasVideo.value) return;
-    canplaythroughVideo.value = false;
-    videoRef.value?.play();
-
-
-    document.body.addEventListener('touchmove', () => {
-      setTimeout(() => {
-        // canplaythroughVideo.value = true;
-        // videoRef.value.play();
-      }, 1000)
-    });
+    if (!hasVideo.value || !videoRef.value) return;
+    setTimeout(() => {
+      videoRef.value?.play();
+    }, 0);
   });
 
 </script>
@@ -77,6 +70,7 @@
       v-if="hasVideo"
       ref="videoRef"
       muted
+      :poster="isMobile ? params.acf.model_main_image_mobile.url : params.acf.model_main_image.url"
       playsinline
       loop
       pip="false"
@@ -90,7 +84,7 @@
     </video>
     
     <picture
-      v-if="params.acf.model_main_image.url && !hasVideo"
+      v-else
       class="detail-header__cover"
     >
       <source

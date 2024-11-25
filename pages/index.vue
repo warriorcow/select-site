@@ -3,6 +3,7 @@
   const { canplaythroughMainVideo } = storeToRefs(useWindowStore());
   const { isMobile } = useWindowStore();
   const { t } = useI18n();
+  const route = useRoute();
 
   definePageMeta({
     layout: 'main'
@@ -45,19 +46,10 @@
   });
 
   onMounted(() => {
-    if (!hasVideo.value) return;
-    videoRef.value?.addEventListener('canplaythrough', () => {
-      canplaythroughMainVideo.value = true;
-    });
-    videoRef.value.play();
-  });
-
-
-
-  watch(() => canplaythroughMainVideo.value, (value) => {
-    if (value && hasVideo.value) {
-      videoRef.value.play();
-    }
+    if (!hasVideo.value || !videoRef.value) return;
+    setTimeout(() => {
+      videoRef.value?.play();
+    }, 0);
   });
 </script>
 
@@ -77,6 +69,7 @@
       ref="videoRef"
       muted
       playsinline
+      :poster="isMobile ? data.acf.image_mobile?.url : data.acf.image?.url"
       loop
       preload="none"
       pip="false"
@@ -91,7 +84,7 @@
     </video>
     
     <picture
-      v-if="data.acf.image?.url"
+      v-else
       class="absolute w-full h-full object-cover"
     >
       <source
