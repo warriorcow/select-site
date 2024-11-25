@@ -117,7 +117,7 @@
         :key="item"
         class="header__hamburger-label"
         :class="[
-          isDark ? 'bg-secondary' : 'bg-primary'
+          isDark ? 'border-b-secondary' : 'border-b-primary'
         ]"
       />
     </button>
@@ -181,7 +181,7 @@
           duration-300
           block
           text-sm
-          pb-0.5
+          border-b-2
           max-tablet:text-xs
           max-mobile:text-xxs;
       }
