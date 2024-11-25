@@ -14,8 +14,6 @@
   }>();
 
   const videoRef: Ref<HTMLVideoElement | null> = ref(null);
-  const canplaythroughVideo = ref(false);
-  const targetIsVisible = useElementVisibility(videoRef);
 
   const getGender = computed(() => props.params.categories.includes(genderMap.men) ? t('genders.men') : t('genders.women'));
 

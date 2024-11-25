@@ -3,7 +3,6 @@
   const { canplaythroughMainVideo } = storeToRefs(useWindowStore());
   const { isMobile } = useWindowStore();
   const { t } = useI18n();
-  const route = useRoute();
 
   definePageMeta({
     layout: 'main'

@@ -65,10 +65,6 @@
     });
   });
 
-  const simplifyURL = computed((): string => {
-    return profileData.value?.acf.www.replace(/^(https?:\/\/)?(www\.)?/, '').replace(/\/$/, '') || '';
-  });
-
   const portfolios = computed(() => {
     const createPortfolio = (name: string, key: string, index: number) => ({
       index,
@@ -178,7 +174,7 @@
           />
           <UiButton
             v-if="profileData.acf.www && !profileData.acf.switch_tabs.includes('site')"
-            :label="simplifyURL"
+            label="models.com"
             :to="profileData.acf.www"
             target="_blank"
             :size="buttonSize"
