@@ -13,7 +13,7 @@
   <div class="grid">
     <label
       v-if="label"
-      class="capitalize mb-[5px] text-accent text-xs"
+      class="mb-[5px] text-accent text-xs"
       v-text="label"
     />
 

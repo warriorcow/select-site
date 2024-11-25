@@ -2,7 +2,7 @@
   import { useCallbackModalStore } from '~/stores/callback-modal';
 
   const route = useRoute();
-  const { isVisible, isSubmitted, formState, v$ } = storeToRefs(useCallbackModalStore());
+  const { isVisible, isSubmitted, formState, v$, hasError } = storeToRefs(useCallbackModalStore());
   const { closeCallbackModal, sendForm, resetForm } = useCallbackModalStore();
 
   watch(() => route.fullPath, () => {
@@ -14,6 +14,11 @@
   function checkValidNumber(isValid: boolean) {
     phoneIsValid.value = isValid;
   }
+
+  function filterCyrillicText(event: Event) {
+    const input = event.target as HTMLInputElement;
+    input.value = input.value.replace(/[А-Яа-яЁё]/g, '');
+  }
 </script>
 
 <template>
@@ -21,7 +26,7 @@
     <Transition name="fade">
       <div
         v-if="isVisible"
-        class="flex justify-center items-center fixed inset-0 z-[60] max-mobile:overflow-auto max-mobile:py-10 max-mobile:items-start"
+        class="flex fixed p-5 inset-0 z-[60] overflow-auto max-mobile:py-10 max-mobile:px-2.5 max-mobile:items-start"
       >
         <Transition
           mode="out-in"
@@ -29,7 +34,7 @@
         >
           <div
             v-if="!isSubmitted"
-            class="w-full max-w-[682px] bg-primary relative z-[60] mx-2.5 overflow-auto"
+            class="w-full max-w-[682px] bg-primary relative z-[60] m-auto"
           >
             <SvgoCross
               class="absolute top-[15px] right-[15px] cursor-pointer"
@@ -76,15 +81,15 @@
                     <UiInput
                       v-model="formState.city"
                       :invalid="v$.city.$error"
-                      :label="$t('becomeAModel.form.first.city')"
-                      placeholder="NewYork"
-                      @blur="v$.fullName.$touch"
+                      :label="$t('becomeAModel.form.first.city.text')"
+                      :placeholder="$t('becomeAModel.form.first.city.placeholder')"
+                      @blur="v$.city.$touch"
                     />
-                    <UiInput
+
+                    <UiDatePicker
                       v-model="formState.dateOfBirth"
                       :invalid="v$.dateOfBirth.$error"
-                      :label="$t('becomeAModel.form.first.dateOfBirth')"
-                      type="date"
+                      :label="$t('becomeAModel.form.first.dateOfBirth.text')"
                       placeholder="01.01.2001"
                       @blur="v$.dateOfBirth.$touch"
                     />
@@ -110,6 +115,7 @@
                       :label="$t('becomeAModel.form.first.instagram')"
                       placeholder="@example"
                       @blur="v$.instagram.$touch"
+                      @input="filterCyrillicText($event)"
                     />
                     <UiInput
                       v-model="formState.telegram"
@@ -117,6 +123,7 @@
                       :label="$t('becomeAModel.form.first.telegram')"
                       placeholder="@example"
                       @blur="v$.telegram.$touch"
+                      @input="filterCyrillicText($event)"
                     />
                   </div>
                 </fieldset>
@@ -214,7 +221,7 @@
                     (!v$.$invalid && phoneIsValid) && 'bg-secondary'
                   ]"
                   @click="sendForm"
-                  v-text="$t('becomeAModel.footer.submitButton')"
+                  v-text="!hasError ? $t('becomeAModel.footer.submitButton.text') : $t('becomeAModel.footer.submitButton.error')"
                 />
               </div>
             </div>
@@ -233,7 +240,7 @@
                 v-text="$t('becomeAModel.thanks.description')"
               />
               <UiButton
-                class="mt-5 mx-auto"
+                class="mt-5 mx-auto hover:!text-accent hover:after:!bg-accent"
                 is-underline
                 is-uppercase
                 size="lg"

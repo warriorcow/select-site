@@ -10,7 +10,7 @@
 <template>
   <div class="">
     <label
-      class="text-xs text-accent mb-[5px] block capitalize"
+      class="text-xs text-accent mb-[5px] block"
       v-text="label"
     />
     <multiselect

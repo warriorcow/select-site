@@ -19,8 +19,14 @@ export default defineI18nConfig(() => ({
             namePlaceholder: 'Full name',
             phone: 'Phone',
             email: 'Email',
-            city: 'City',
-            dateOfBirth: 'Date of Birth',
+            city: {
+              text: 'City',
+              placeholder: 'New York',
+            },
+            dateOfBirth: {
+              text: 'Date of Birth',
+              placeholder: '01.01.2001',
+            },
             maritalStatus: 'Marital Status',
             maritalStatusOptions: {
               1: 'Not married',
@@ -51,7 +57,10 @@ export default defineI18nConfig(() => ({
           backButton: '< back',
           policyText: 'By clicking the "SEND" button, you consent to',
           policyLink: 'the privacy and personal data processing policy',
-          submitButton: 'Send'
+          submitButton: {
+            text: 'Send',
+            error: 'An error occurred'
+          }
         },
         thanks: {
           title: 'Your application has been sent',
@@ -169,8 +178,14 @@ export default defineI18nConfig(() => ({
             namePlaceholder: 'ФИО',
             phone: 'Телефон',
             email: 'Email',
-            city: 'Город',
-            dateOfBirth: 'Дата рождения',
+            city: {
+              text: 'Город',
+              placeholder: 'Москва',
+            },
+            dateOfBirth: {
+              text: 'Дата рождения',
+              placeholder: '01.01.2001',
+            },
             maritalStatus: 'Семейное положение',
             maritalStatusOptions: {
               1: 'Не замужем/Не женат',
@@ -200,13 +215,16 @@ export default defineI18nConfig(() => ({
         footer: {
           backButton: '< назад',
           policyText: 'Нажимая кнопку "ОТПРАВИТЬ", вы соглашаетесь с',
-          policyLink: 'политикой конфиденциальности и обработки персональных данных',
-          submitButton: 'Отправить'
+          policyLink: 'политикой конфиденциальности и обработки персональных данных.',
+          submitButton: {
+            text: 'Отправить',
+            error: 'Произошла ошибка'
+          }
         },
         thanks: {
-          title: 'Ваша заявка отправлена',
-          description: 'В ближайшее время менеджер ознакомится с вашим профилем и свяжется с вами',
-          closeButton: 'Ок'
+          title: 'ваша заявка успешно отправлена',
+          description: 'В ближайшее время менеджер изучит вашу анкету, и свяжется с вами',
+          closeButton: 'хорошо'
         }
       },
       header: {

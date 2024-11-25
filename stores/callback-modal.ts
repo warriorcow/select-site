@@ -1,33 +1,13 @@
 import { defineStore } from 'pinia';
 import useVuelidate from '@vuelidate/core';
-import { required, email, minLength, numeric, helpers } from '@vuelidate/validators';
-
-const validDate = helpers.withMessage(
-  'Некорректная дата',
-  (value) => {
-    if (!value) return false;
-
-    // Разбиваем дату на year, month, day
-    const [year, month, day] = value.split('-').map(Number);
-
-    // Проверка года на допустимый диапазон
-    if (year < 1900 || year > new Date().getFullYear()) return false;
-
-    // Проверяем, существует ли дата
-    const date = new Date(year, month - 1, day);
-    return (
-      date.getFullYear() === year &&
-      date.getMonth() === month - 1 &&
-      date.getDate() === day
-    );
-  }
-);
-
+import { required, email, minLength, numeric } from '@vuelidate/validators';
 
 export const useCallbackModalStore = defineStore('callback-modal', () => {
   const router = useRouter();
+  const { locale } = useI18n();
 
   const isVisible = ref(false);
+  const hasError = ref(false);
   const isSubmitted = ref(false);
   const formState = ref({
     fullName: '',
@@ -51,10 +31,10 @@ export const useCallbackModalStore = defineStore('callback-modal', () => {
   // Определение правил валидации
   const rules = {
     fullName: { required, minLength: minLength(3) },
-    phone: { required, minLength: minLength(10) },
+    phone: { required },
     email: { required, email },
-    city: { required },
-    dateOfBirth: { required, validDate },
+    city: { required, minLength: minLength(3) },
+    dateOfBirth: { required, minLength: minLength(10) },
     maritalStatus: { required },
     instagram: { required },
     telegram: { required },
@@ -90,9 +70,25 @@ export const useCallbackModalStore = defineStore('callback-modal', () => {
     resetForm();
   };
 
-  const sendForm = () => {
+  const sendForm = async () => {
+    hasError.value = false;
     if (!v$.value.$invalid) {
-      isSubmitted.value = true;
+      try {
+        await useApi('/wp-admin/admin-ajax.php', {
+          method: 'post',
+          body: {
+            ...formState.value,
+            action: 'sendform',
+            lang: locale.value
+          },
+          onResponse() {
+            isSubmitted.value = true;
+          },
+        });
+      } catch (e) {
+        hasError.value = true;
+        console.error(`Не удалось отправить форму. ${e}`);
+      }
     }
   };
 
@@ -129,6 +125,7 @@ export const useCallbackModalStore = defineStore('callback-modal', () => {
     openCallbackModal,
     closeCallbackModal,
     sendForm,
-    resetForm
+    resetForm,
+    hasError
   };
 });

@@ -31,7 +31,6 @@
     }
     return 'lg';
   });
-  console.log('Получение профиля');
   // Получение профиля
   const { data: profileData } = await useApi(`/${immediateLocale.value}/wp-json/wp/v2/posts`, {
     query: {

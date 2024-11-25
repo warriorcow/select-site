@@ -39,15 +39,6 @@ export default defineNuxtConfig({
     }
   },
   vite: {
-    build: {
-      rollupOptions: {
-        plugins: [visualizer({
-          open: true, // автоматически открыть отчёт в браузере
-          filename: 'stats.html', // путь к отчёту
-          template: 'treemap' // тип визуализации: 'sunburst', 'treemap', 'network'
-        })]
-      }
-    },
     server: {
       hmr: {
         protocol: 'http',
@@ -65,7 +56,7 @@ export default defineNuxtConfig({
     }
   },
   css: ['../assets/scss/main.css', '../assets/scss/fonts.scss', 'vue-multiselect/dist/vue-multiselect.min.css', '@fancyapps/ui/dist/fancybox/fancybox.css'],
-  plugins: ['../plugins/vuelidate.js', '../plugins/vue3-tel-input.client.ts'],
+  plugins: ['../plugins/vuelidate.js', '../plugins/vue3-tel-input.client.ts', { src: '../plugins/vue-the-mask.js', mode: 'all' }],
   modules: [
     '@nuxt/eslint',
     'nuxt-svgo',

@@ -16,7 +16,6 @@
   const { closeMenu } =  useMenuStore();
 
   if (process.server) {
-    console.log(config.public.user);
     immediateLocale.value = locale.value;
     const { data } = await useApi(`/wp-json/jwt-auth/v1/token?username=${config.public.user}&password=${config.public.password}`, {
       method: 'post',

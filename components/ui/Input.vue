@@ -21,7 +21,6 @@
       class="mb-[5px] text-accent text-xs"
       v-text="label"
     />
-
     <input
       v-model="model"
       v-bind="$attrs"
@@ -36,10 +35,5 @@
 </template>
 
 <style scoped lang="scss">
-//[type="date"]::-webkit-inner-spin-button {
-//  display: none;
-//}
-//[type="date"]::-webkit-calendar-picker-indicator {
-//  display: none;
-//}
+.input {}
 </style>

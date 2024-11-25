@@ -10,10 +10,12 @@
     label: null
   });
 
-  const isValid = ref<boolean | null>(null);
+  const isValid = ref<boolean>(true);
+  const isBlured = ref<boolean>(false);
 
   function validate(value: boolean) {
-    isValid.value = value.valid;
+    if (!isBlured.value) return;
+    isValid.value = value.valid || false;
     emit('is-valid', isValid.value);
   }
 </script>
@@ -22,7 +24,7 @@
   <div class="grid">
     <label
       v-if="label"
-      class="capitalize mb-[5px] text-accent text-xs"
+      class="mb-[5px] text-accent text-xs"
       v-text="label"
     />
     <ClientOnly fallback-tag="span">
@@ -43,6 +45,7 @@
         class="focus:outline-secondary outline-offset-0 w-full border !border-[#D9D9D9] m-0 px-2.5 !rounded-[5px] h-[28px] placeholder-accent text-secondary text-xs !shadow-none"
         :class="!isValid && '!border-[#ff0000]'"
         @validate="validate"
+        @click="isBlured = true"
       />
     </ClientOnly>
   </div>
