@@ -162,10 +162,10 @@ export default defineI18nConfig(() => ({
       },
       becomeAModel: {
         title: 'Cтать моделью',
-        description: 'Заполните все поля, чтобы отправить свою заявку в наше агентство',
+        description: 'Заполните все поля, чтобы отправить заявку в наше агентство',
         form: {
           first: {
-            title: 'Личные данные',
+            title: 'Основная информация',
             namePlaceholder: 'ФИО',
             phone: 'Телефон',
             email: 'Email',

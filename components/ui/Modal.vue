@@ -199,10 +199,10 @@
                   is-underline
                   @click="closeCallbackModal"
                 />
-                <div class="text-xs text-accent max-w-[232px] max-mobile:max-w-full">
+                <div class="text-xs text-accent max-w-[245px] ml-2.5 max-mobile:max-w-full">
                   {{ $t('becomeAModel.footer.policyText') }}
                   <NuxtLink
-                    class="underline inline-block"
+                    class="underline"
                     to="/policy"
                   >
                     {{ $t('becomeAModel.footer.policyLink') }}
