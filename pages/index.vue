@@ -8,18 +8,6 @@
     layout: 'main'
   });
 
-  watchEffect(() => {
-    useHead({
-      title: t('seo.main.title'),
-      meta: [
-        {
-          name: 'description',
-          content: t('seo.main.title')
-        },
-      ],
-    });
-  });
-
   const { data } = await useFetch('https://admin.alekseyp.store/wp-json/wp/v2/pages', {
     query: {
       slug: 'main',
@@ -49,6 +37,18 @@
     setTimeout(() => {
       videoRef.value?.play();
     }, 0);
+  });
+
+  watchEffect(() => {
+    useHead({
+      title: data.value.acf.seo_title,
+      meta: [
+        {
+          name: 'description',
+          content: data.value.acf.seo_description
+        },
+      ],
+    });
   });
 </script>
 

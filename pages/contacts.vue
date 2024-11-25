@@ -14,11 +14,19 @@
 
   watchEffect(() => {
     useHead({
-      title: t('seo.contacts.title'),
+      title: data.value.acf.seo_title,
       meta: [
         {
+          property: 'og:title',
+          content: data.value.acf.seo_title,
+        },
+        {
+          property: 'og:description',
+          content: data.value.acf.seo_description, // добавьте описание страницы
+        },
+        {
           name: 'description',
-          content: t('seo.contacts.title')
+          content: data.value.acf.seo_description
         },
       ],
     });

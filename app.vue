@@ -3,7 +3,10 @@
   import { useMenuStore } from '~/stores/menu';
   import { useNuxtApp } from '#app';
   import { useI18n } from 'vue-i18n';
-  import {useCallbackModalStore} from '~/stores/callback-modal';
+  import { useCallbackModalStore } from '~/stores/callback-modal';
+
+  const { t } = useI18n();
+  const route = useRoute();
 
   definePageMeta({
     layout: 'default',
@@ -59,6 +62,33 @@
 
   watch(() => immediateLocale.value, async () => {
     await fetchMenu();
+  });
+
+  watchEffect(() => {
+    useHead({
+      meta: [
+        {
+          property: 'og:title',
+          content: t('seo.main.title'),
+        },
+        {
+          property: 'og:description',
+          content: t('seo.main.description'), // добавьте описание страницы
+        },
+        {
+          property: 'og:image',
+          content: '/badge.png', // ссылка на изображение
+        },
+        {
+          property: 'og:url',
+          content: route.fullPath, // текущий URL страницы
+        },
+        {
+          property: 'og:type',
+          content: 'website', // тип контента
+        },
+      ],
+    });
   });
 </script>
 

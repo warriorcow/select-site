@@ -58,8 +58,20 @@
       title: profileData.value?.acf.seo_title || 'seo_title',
       meta: [
         {
+          property: 'og:title',
+          content: profileData.value?.acf.seo_title,
+        },
+        {
+          property: 'og:description',
+          content: profileData.value?.acf.seo_description, // добавьте описание страницы
+        },
+        {
           name: 'description',
           content: profileData.value?.acf.seo_description || 'seo_description'
+        },
+        {
+          property: 'og:image',
+          content: profileData.value?.acf.model_main_image.url || '/badge.png', // ссылка на изображение
         },
       ],
     });
