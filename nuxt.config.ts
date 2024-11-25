@@ -1,11 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { visualizer } from 'rollup-plugin-visualizer';
 export default defineNuxtConfig({
   devtools: { enabled: false },
   runtimeConfig: {
     public: {
       apiUrl: process.env.API_URL,
-      fakeApiUrl: process.env.FAKE_API_URL,
-      useFakeApi: process.env.USE_FAKE_API,
+      user: process.env.USER,
+      password: process.env.PASSWORD,
     },
   },
   i18n: {
@@ -38,13 +39,22 @@ export default defineNuxtConfig({
     }
   },
   vite: {
+    build: {
+      rollupOptions: {
+        plugins: [visualizer({
+          open: true, // автоматически открыть отчёт в браузере
+          filename: 'stats.html', // путь к отчёту
+          template: 'treemap' // тип визуализации: 'sunburst', 'treemap', 'network'
+        })]
+      }
+    },
     server: {
       hmr: {
         protocol: 'http',
         host: 'localhost',
         clientPort: 3000,
         port: 3000,
-      }
+      },
     },
     css: {
       preprocessorOptions: {
@@ -65,8 +75,7 @@ export default defineNuxtConfig({
     'nuxt-viewport',
     'nuxt-swiper',
     '@nuxtjs/i18n',
-    '@vueuse/nuxt',
-    '@nuxt/image'
+    '@vueuse/nuxt'
   ],
   viewport: {
     breakpoints: {

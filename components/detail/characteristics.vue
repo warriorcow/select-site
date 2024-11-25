@@ -1,7 +1,8 @@
 <script setup lang="ts">
   import type { ButtonSizesKeys } from '~/components/ui/Button.vue';
   import { useWindowStore } from '~/stores/window';
-  import _ from 'lodash';
+  import omitBy from 'lodash/omitBy';
+  import isEmpty from 'lodash/isEmpty';
   import type { Params } from '~/models/profile';
   const { isMobile, isTablet } = storeToRefs(useWindowStore());
   const { locale } = useI18n();
@@ -23,7 +24,7 @@
   });
 
   const characteristicsData = computed(() => {
-    const filteredEmptyParams = _.omitBy(props.params.ru, value => _.isEmpty(value));
+    const filteredEmptyParams = omitBy(props.params.ru, value => isEmpty(value));
 
     const localeData = props.params[locale.value];
     const characteristics = {
@@ -49,7 +50,7 @@
 
 <template>
   <div class="flex flex-col items-center px-4 pt-[30px] max-tablet:pt-[20px] pb-[40px] max-tablet:pb-[30px] max-mobile:p-5 mb-[25px] max-tablet:mb-[20px] max-mobile:mb-0 justify-center relative">
-    <UiCollapsible v-if="isMobile && !_.isEmpty(characteristicsData)">
+    <UiCollapsible v-if="isMobile && !isEmpty(characteristicsData)">
       <UiCollapsibleTrigger>
         <UiButton
           :label="$t('pages.profile.characteristic.title')"
@@ -80,7 +81,7 @@
         </div>
       </UiCollapsibleContent>
     </UiCollapsible>
-    <template v-else-if="!_.isEmpty(characteristicsData)">
+    <template v-else-if="isEmpty(characteristicsData)">
       <UiButton
         :label="$t('pages.profile.characteristic.title')"
         :size="buttonSize"

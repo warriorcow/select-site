@@ -25,7 +25,7 @@ export const useProfileStore = defineStore('profile', {
     async fetchProfile(slug: string): Promise<void> {
       const { language } = useWindowStore();
       try {
-        const { data } = await useFetch<Profile>(`https://admin.alekseyp.store/${language}/wp-json/wp/v2/posts`, {
+        const { data } = await useApi<Profile>(`/${language}/wp-json/wp/v2/posts`, {
           query: {
             slug,
             acf_format: 'standard'

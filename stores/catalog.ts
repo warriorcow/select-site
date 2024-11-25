@@ -19,7 +19,7 @@ export const useCatalogStore = defineStore('catalog', {
   actions: {
     async fetchCatalog(slug: string): Promise<void> {
       const { immediateLocale } = storeToRefs(useWindowStore());
-      const { data: category } = await useFetch(`https://admin.alekseyp.store/${immediateLocale.value}/wp-json/wp/v2/categories`, {
+      const { data: category } = await useApi(`/${immediateLocale.value}/wp-json/wp/v2/categories`, {
         query: {
           slug
         },
@@ -34,7 +34,7 @@ export const useCatalogStore = defineStore('catalog', {
           }
         }
       });
-      const { data: catalog, status } = await useFetch(`https://admin.alekseyp.store/${immediateLocale.value}/wp-json/wp/v2/posts`, {
+      const { data: catalog, status } = await useApi(`/${immediateLocale.value}/wp-json/wp/v2/posts`, {
         query: {
           categories: category.value[0].id,
           acf_format: 'standard'

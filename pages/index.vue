@@ -2,13 +2,12 @@
   const localePath = useLocalePath();
   const { canplaythroughMainVideo } = storeToRefs(useWindowStore());
   const { isMobile } = useWindowStore();
-  const { t } = useI18n();
 
   definePageMeta({
     layout: 'main'
   });
 
-  const { data } = await useFetch('https://admin.alekseyp.store/wp-json/wp/v2/pages', {
+  const { data } = await useApi('/wp-json/wp/v2/pages', {
     query: {
       slug: 'main',
       acf_format: 'standard'
@@ -56,7 +55,7 @@
   <div class="w-full h-full flex justify-center items-center relative overflow-hidden">
     <h1
       class="absolute text-[0px] opacity-0 pointer-events-none select-none"
-      v-text="$t('seo.main.title.h1')"
+      v-text="$t('seo.main.h1')"
     />
     <NuxtLink
       class="absolute inset-0 flex items-center justify-center w-full z-30"

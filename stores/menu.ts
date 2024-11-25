@@ -17,7 +17,7 @@ export const useMenuStore = defineStore('menu', {
       const route = useRoute();
 
       try {
-        const { data, refresh } = await useFetch(`https://admin.alekseyp.store/${immediateLocale.value}/wp-json/wp/v2/menu-items`, {
+        const { data, refresh } = await useApi(`/${immediateLocale.value}/wp-json/wp/v2/menu-items`, {
           headers: {
             Authorization: `Bearer ${token.value}`,
           },

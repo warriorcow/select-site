@@ -10,7 +10,7 @@
   const { setToken } = useWindowStore();
 
   if (process.server) {
-    const { data } = await useFetch('https://admin.alekseyp.store/wp-json/jwt-auth/v1/token?username=jwt_user&password=123456', {
+    const { data } = await useApi('/wp-json/jwt-auth/v1/token?username=jwt_user&password=123456', {
       method: 'post',
       pick: ['token']
     });

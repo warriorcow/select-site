@@ -2,7 +2,7 @@
   const { immediateLocale } = storeToRefs(useWindowStore());
   const { t } = useI18n();
 
-  const { data } = await useFetch(`https://admin.alekseyp.store/${immediateLocale.value}/wp-json/wp/v2/pages`, {
+  const { data } = await useApi(`/${immediateLocale.value}/wp-json/wp/v2/pages`, {
     query: {
       slug: 'about',
       acf_format: 'standard'

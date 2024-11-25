@@ -4,19 +4,9 @@
   import { useNuxtApp } from '#app';
   import { useI18n } from 'vue-i18n';
   import { useCallbackModalStore } from '~/stores/callback-modal';
-
+  const config = useRuntimeConfig();
   const { t } = useI18n();
   const route = useRoute();
-
-  definePageMeta({
-    layout: 'default',
-    async onError(error) {
-      if (error.statusCode === 404) {
-        return { layout: 'error' };
-      }
-    }
-  });
-
   const { fetchMenu } = useMenuStore();
   const { $viewport } = useNuxtApp();
   const { finalizePendingLocaleChange, locale } = useI18n();
@@ -25,9 +15,10 @@
   const { closeCallbackModal } = useCallbackModalStore();
   const { closeMenu } =  useMenuStore();
 
-  if (import.meta.server) {
+  if (process.server) {
+    console.log(config.public.user);
     immediateLocale.value = locale.value;
-    const { data } = await useFetch('https://admin.alekseyp.store/wp-json/jwt-auth/v1/token?username=jwt_user&password=123456', {
+    const { data } = await useApi(`/wp-json/jwt-auth/v1/token?username=${config.public.user}&password=${config.public.password}`, {
       method: 'post',
       pick: ['token']
     });

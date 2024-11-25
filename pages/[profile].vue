@@ -31,9 +31,9 @@
     }
     return 'lg';
   });
-
+  console.log('Получение профиля');
   // Получение профиля
-  const { data: profileData } = await useFetch(`https://admin.alekseyp.store/${immediateLocale.value}/wp-json/wp/v2/posts`, {
+  const { data: profileData } = await useApi(`/${immediateLocale.value}/wp-json/wp/v2/posts`, {
     query: {
       slug,
       acf_format: 'standard'

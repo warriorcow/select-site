@@ -281,8 +281,6 @@
     }
   }
 
-  // Animation
-
   .portfolio__tab {
     overflow: hidden;
   }

@@ -3,7 +3,7 @@
 
 
   const { immediateLocale } = storeToRefs(useWindowStore());
-  const { data } = await useFetch<RootCategory>(`https://admin.alekseyp.store/${immediateLocale.value}/wp-json/custom/v1/categories`);
+  const { data } = await useApi<RootCategory>(`/${immediateLocale.value}/wp-json/custom/v1/categories`);
   const { t } = useI18n();
 
   watchEffect(() => {
