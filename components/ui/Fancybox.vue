@@ -31,7 +31,10 @@
 </script>
 
 <template>
-  <div v-bind="$attrs" ref="container">
+  <div
+    v-bind="$attrs"
+    ref="container"
+  >
     <slot />
   </div>
 </template>

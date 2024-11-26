@@ -1,7 +1,4 @@
 <script setup lang="ts">
-// onMounted(() => {
-//   window.scrollTo({top: 0})
-// })
 </script>
 
 <template>

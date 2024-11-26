@@ -28,13 +28,8 @@ export const useWindowStore = defineStore('window', {
       this.token = token;
     },
 
-    async setLanguage(lang: string) {
-      this.language = lang;
-    },
-
     async immediateSwitch(e, locale) {
       this.immediateLocale = locale;
-      // click handler on nuxtlink prevent navigation so we have to navigate manually
       await navigateTo(e.target.getAttribute('href'));
     }
   }

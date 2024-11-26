@@ -5,7 +5,6 @@
     isOpen.value = !isOpen.value;
   }
 
-  // Предоставляем состояние и функцию переключения дочерним компонентам
   provide('isOpen', isOpen);
   provide('toggle', toggle);
 </script>

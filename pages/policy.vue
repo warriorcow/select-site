@@ -22,7 +22,7 @@
         },
         {
           property: 'og:description',
-          content: data.value.acf.seo_description, // добавьте описание страницы
+          content: data.value.acf.seo_description,
         },
         {
           name: 'description',

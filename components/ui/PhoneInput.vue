@@ -35,7 +35,7 @@
         v-bind="$attrs"
         v-model="model"
         valid-characters-only
-        :dropdownOptions="{
+        :dropdown-options="{
           showSearchBox: true,
           showFlags: true
         }"
@@ -52,14 +52,6 @@
 </template>
 
 <style scoped lang="scss">
-:global(.vti__dropdown-arrow) {
-  //display: none;
-}
-
-:global(.vue-tel-input) {
-  //overflow: hidden;
-}
-
 :global(.vti__input) {
   @apply py-1.5;
 }
@@ -80,7 +72,6 @@
 }
 
 :global(.vti__flag) {
-  //margin: 0;
   height: 14px !important;
 }
 

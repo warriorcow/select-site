@@ -2,13 +2,6 @@
   import { NuxtLink } from '#components';
   const localePath = useLocalePath();
 
-  export interface IBreadcrumbs {
-    name: string
-    link: string
-    active: boolean
-    isWhite?: boolean
-  }
-
   defineProps<{
     items: any
   }>();

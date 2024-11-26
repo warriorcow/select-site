@@ -28,7 +28,6 @@ export const useCallbackModalStore = defineStore('callback-modal', () => {
     about: ''
   });
 
-  // Определение правил валидации
   const rules = {
     fullName: { required, minLength: minLength(3) },
     phone: { required },
@@ -48,7 +47,6 @@ export const useCallbackModalStore = defineStore('callback-modal', () => {
     about: {}
   };
 
-  // Инициализация Vuelidate
   const v$ = useVuelidate(rules, formState);
 
   const toggleCallbackModal = () => {
@@ -61,7 +59,6 @@ export const useCallbackModalStore = defineStore('callback-modal', () => {
 
   const closeCallbackModal = () => {
     if (import.meta.client && window.location.hash) {
-      // Убираем хэш из URL
       router.replace({
         path: window.location.pathname,
         query: router.currentRoute.value.query

@@ -11,7 +11,6 @@ export const useMenuStore = defineStore('menu', {
     menu: null
   }),
   actions: {
-    // Загрузка меню с API и построение дерева
     async fetchMenu() {
       const { token, immediateLocale } = storeToRefs(useWindowStore());
       const route = useRoute();

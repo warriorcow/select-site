@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  const { t } = useI18n();
   const { immediateLocale } = storeToRefs(useWindowStore());
 
   const { data } = await useApi(`/${immediateLocale.value}/wp-json/wp/v2/pages`, {
@@ -22,7 +21,7 @@
         },
         {
           property: 'og:description',
-          content: data.value.acf.seo_description, // добавьте описание страницы
+          content: data.value.acf.seo_description,
         },
         {
           name: 'description',

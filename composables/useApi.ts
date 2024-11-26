@@ -5,8 +5,7 @@ export function useApi<T>(
   options?: UseFetchOptions<T>,
 ) {
   const config = useRuntimeConfig();
-  // Определение полного URL в зависимости от режима
-  const apiUrl = `${config.public.apiUrl}${url}`; // Реальный API
+  const apiUrl = `${config.public.apiUrl}${url}`;
   return useFetch(apiUrl, {
     ...options,
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

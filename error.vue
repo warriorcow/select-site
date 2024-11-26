@@ -9,7 +9,7 @@
   const { fetchMenu } = useMenuStore();
   const { setToken } = useWindowStore();
 
-  if (process.server) {
+  if (import.meta.server) {
     const { data } = await useApi('/wp-json/jwt-auth/v1/token?username=jwt_user&password=123456', {
       method: 'post',
       pick: ['token']

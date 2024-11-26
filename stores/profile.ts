@@ -22,22 +22,6 @@ export const useProfileStore = defineStore('profile', {
     }
   },
   actions: {
-    async fetchProfile(slug: string): Promise<void> {
-      const { language } = useWindowStore();
-      try {
-        const { data } = await useApi<Profile>(`/${language}/wp-json/wp/v2/posts`, {
-          query: {
-            slug,
-            acf_format: 'standard'
-          },
-        });
-
-        this.profileData = data.value[0];
-      } catch (e) {
-        console.error('Не удалось загрузить профиль', e);
-      }
-    },
-
     setActivePortfolioIndex(index: number): void {
       this.activePortfolioIndex = 4;
       setTimeout(() => {

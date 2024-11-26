@@ -12,17 +12,14 @@
 
   const createdSlug = pull(Object.values(pick(route.params, ['catalog', 'category'])), '').join('-');
 
-  // Загрузка тайтла
   const { data: categories } = await useApi<RootCategory>(`/${immediateLocale.value}/wp-json/custom/v1/categories`);
   const title = `${categories.value[route.params.catalog].name} ${route.params.category ? findBySlug(categories.value[route.params.catalog], createdSlug).name : ''}`;
 
 
-  // Получение одменю
   const menu = computed((): Category => {
     return findBySlug(categories.value[route.params.catalog], createdSlug);
   });
 
-  // Получение моделей
   const catalogCategorySlug = pull(Object.values(route.params), '').join('-');
   const categoryId = findBySlug(categories.value[route.params.catalog], catalogCategorySlug).id;
   const { data: models } = await useApi(`/${immediateLocale.value}/wp-json/wp/v2/posts`, {

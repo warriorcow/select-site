@@ -3,7 +3,7 @@
     items: any[];
   }>();
 
-  const activeTab = ref(0)
+  const activeTab = ref(0);
 </script>
 
 <template>
@@ -23,7 +23,10 @@
     </slot>
 
     <div class="tabs__content">
-      <slot name="content" :item="items[activeTab]" />
+      <slot
+        name="content"
+        :item="items[activeTab]"
+      />
     </div>
   </div>
 </template>

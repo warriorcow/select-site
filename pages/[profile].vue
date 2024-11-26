@@ -31,7 +31,7 @@
     }
     return 'lg';
   });
-  // Получение профиля
+
   const { data: profileData } = await useApi(`/${immediateLocale.value}/wp-json/wp/v2/posts`, {
     query: {
       slug,
@@ -62,7 +62,7 @@
         },
         {
           property: 'og:description',
-          content: profileData.value?.acf.seo_description, // добавьте описание страницы
+          content: profileData.value?.acf.seo_description,
         },
         {
           name: 'description',
@@ -70,7 +70,7 @@
         },
         {
           property: 'og:image',
-          content: profileData.value?.acf.model_main_image.url || '/badge.png', // ссылка на изображение
+          content: profileData.value?.acf.model_main_image.url || '/badge.png',
         },
       ],
     });
@@ -94,7 +94,7 @@
     ];
 
     return keys
-      .filter(({ key }) => profileData.value.acf[key]) // Проверяем, что данные существуют
+      .filter(({ key }) => profileData.value.acf[key])
       .map(({ name, key }, index) => createPortfolio(name, key, index))
       .filter(portfolio => !portfolio.hidden);
   });
@@ -115,7 +115,7 @@
     ];
 
     return keys
-      .filter(({ name }) => profileData.value.acf[name]) // Проверяем наличие данных
+      .filter(({ name }) => profileData.value.acf[name])
       .map(({ name, type, key }) => createItem(name, type, key))
       .filter(tab => !tab.hidden);
   });
@@ -138,7 +138,7 @@
     setTimeout(() => {
 
       document.querySelectorAll('.tab-scroll-area')[index].scrollIntoView({ block: 'start', behavior: 'smooth' });
-    transitionTime.value = 0.4;
+      transitionTime.value = 0.4;
     }, 200);
   }
 </script>

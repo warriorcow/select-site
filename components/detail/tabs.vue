@@ -28,7 +28,7 @@
     if (index === null) return;
     setTimeout(() => {
       openTab(index);
-    }, 100)
+    }, 100);
 
   }, {
     immediate: true
@@ -82,7 +82,7 @@
   }
 
   function closeTab(): void {
-    if (isAnimatedTab.value) return; // Блокируем закрытие во время анимации
+    if (isAnimatedTab.value) return;
 
     isAnimatedTab.value = true;
     const currentTab = tabsContentRef.value[activeTabIndex.value!];

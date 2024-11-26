@@ -17,16 +17,14 @@
     while (i < props.models?.length) {
       let size: number = pattern.value[result.length % pattern.value.length];
 
-      // Проверка условия для паттерна 4 и оставшихся 3 элементов
       const remaining = props.models.length - i;
       if (size === 4 && remaining === 3 && i !== 0) {
-        size = 2; // Кладем 2 элемента
+        size = 2;
       }
 
       result.push(props.models.slice(i, i + size));
       i += size;
 
-      // Если при паттерне 4 было 3 элемента, то добавляем оставшийся в новый массив
       if (size === 2 && remaining === 3) {
         result.push(props.models.slice(i, i + 1));
         i += 1;

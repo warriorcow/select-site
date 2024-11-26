@@ -8,9 +8,15 @@
 </script>
 
 <template>
-  <section class="accordion-animation-wrapper" :class="[isOpen && 'open']">
+  <section
+    class="accordion-animation-wrapper"
+    :class="[isOpen && 'open']"
+  >
     <div class="accordion-animation">
-      <div class="accordion-transform-wrapper" :class="[isOpen && 'open']">
+      <div
+        class="accordion-transform-wrapper"
+        :class="[isOpen && 'open']"
+      >
         <div class="accordion-content">
           <slot />
         </div>

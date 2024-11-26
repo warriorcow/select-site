@@ -83,11 +83,9 @@
   const content = ref<HTMLElement | null>(null);
 
   const hasLabel = slots.label !== undefined;
-  // Пробуем получить контекст активного аккордеона, если он есть
   const activeAccordion = inject<Ref<string | null> | null>('activeAccordion', null);
   const setActiveAccordion = inject<((id: string | null) => void) | null>('setActiveAccordion', null);
 
-  // Если есть контекст, то отслеживаем изменения состояния
   if (activeAccordion && setActiveAccordion) {
     watch(activeAccordion, (newVal) => {
       isOpen.value = newVal === props.id;
@@ -96,14 +94,12 @@
 
   const toggle = () => {
     if (activeAccordion && setActiveAccordion) {
-      // Если аккордеон внутри группы, управляем через группу
       if (isOpen.value) {
         setActiveAccordion(null);
       } else {
         setActiveAccordion(props.id);
       }
     } else {
-      // Если аккордеон без группы, управляем локально
       isOpen.value = !isOpen.value;
     }
     emit('toggle', isOpen.value);
@@ -144,7 +140,6 @@
 
     &__wrapper {
       @apply
-        //overflow-hidden
         w-full
         transition-[height];
     }

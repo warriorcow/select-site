@@ -15,7 +15,7 @@
   const { closeCallbackModal } = useCallbackModalStore();
   const { closeMenu } =  useMenuStore();
 
-  if (process.server) {
+  if (import.meta.server) {
     immediateLocale.value = locale.value;
     const { data } = await useApi(`/wp-json/jwt-auth/v1/token?username=${config.public.user}&password=${config.public.password}`, {
       method: 'post',
@@ -63,19 +63,19 @@
         },
         {
           property: 'og:description',
-          content: t('seo.main.description'), // добавьте описание страницы
+          content: t('seo.main.description'),
         },
         {
           property: 'og:image',
-          content: '/badge.png', // ссылка на изображение
+          content: '/badge.png',
         },
         {
           property: 'og:url',
-          content: route.fullPath, // текущий URL страницы
+          content: route.fullPath,
         },
         {
           property: 'og:type',
-          content: 'website', // тип контента
+          content: 'website',
         },
       ],
     });

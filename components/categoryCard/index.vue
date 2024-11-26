@@ -30,11 +30,6 @@
 
   const toggleVisibleCategories = () => (isVisibleCategories.value = !isVisibleCategories.value);
 
-  const onMouseLeave = () => {
-    // isVisibleCategories.value = false;
-    // isHovered.value = false;
-  };
-
   onMounted(() => {
     const countImages = props.params.images?.length - 1 || 0;
     intervalId.value = setInterval(() => {
