@@ -29,6 +29,12 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon.svg' },
         { rel: 'manifest', href: '/site.webmanifest' }
       ],
+      meta: [
+        {
+          name: 'viewport',
+          content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no',
+        }
+      ],
       script: [
         {
           src: 'https://vk.com/js/api/videoplayer.js'
