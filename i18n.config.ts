@@ -125,7 +125,7 @@ export default defineI18nConfig(() => ({
           }
         },
         models: {
-          title: 'Select Our Models and Talents',
+          title: 'Select Our Models<br> and Talents',
           breadcrumbs: {
             1: 'Home',
             2: 'Category'

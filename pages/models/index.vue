@@ -1,23 +1,13 @@
 <script setup lang="ts">
   import type { RootCategory } from '~/models/category';
+  import { useGetSeoData } from '~/composables/useGetSeoData';
 
 
   const { immediateLocale } = storeToRefs(useWindowStore());
-  const { data } = await useApi<RootCategory>(`/${immediateLocale.value}/wp-json/custom/v1/categories`);
-  const { t } = useI18n();
+  const { data: pageData } = await useApi<RootCategory>(`/${immediateLocale.value}/wp-json/wp/v2/categories?slug=models`);
+  const { data: categoriesData } = await useApi<RootCategory>(`/${immediateLocale.value}/wp-json/custom/v1/categories`);
 
-  watchEffect(() => {
-    useHead({
-      title: t('seo.models.title'),
-      meta: [
-        {
-          name: 'description',
-          content: t('seo.models.title')
-        },
-      ],
-    });
-  });
-
+  useGetSeoData(pageData.value[0]);
 </script>
 
 <template>
@@ -43,7 +33,7 @@
     />
     <div class="models__container">
       <CategoryCard
-        v-for="category in data"
+        v-for="category in categoriesData"
         :key="category.id"
         :params="category"
       />

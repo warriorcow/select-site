@@ -7,7 +7,7 @@
   import type { Category, RootCategory } from '~/models/category';
   const localePath = useLocalePath();
   const { isMobile, isTablet, immediateLocale } = storeToRefs(useWindowStore());
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const route = useRoute();
 
   const createdSlug = pull(Object.values(pick(route.params, ['catalog', 'category'])), '').join('-');
@@ -18,6 +18,10 @@
 
   const menu = computed((): Category => {
     return findBySlug(categories.value[route.params.catalog], createdSlug);
+  });
+
+  const hasType = computed((): boolean => {
+    return !!route.params.type;
   });
 
   const catalogCategorySlug = pull(Object.values(route.params), '').join('-');
@@ -77,13 +81,56 @@
     return route.params.category;
   });
 
+
+  const getSEO = computed(() => {
+    if (hasType.value) {
+      const createdSlug = pull(Object.values(pick(route.params, ['catalog', 'category', 'type'])), '').join('-');
+      const data = findBySlug(categories.value[route.params.catalog], createdSlug);
+
+      if (locale.value === 'ru') {
+        return {
+          title: data.seo_title,
+          description: data.seo_description
+        };
+      } else {
+        return {
+          title: data.seo_title_en,
+          description: data.seo_description_en
+        };
+      }
+    } else {
+      const createdSlug = pull(Object.values(pick(route.params, ['catalog', 'category'])), '').join('-');
+      const data = findBySlug(categories.value[route.params.catalog], createdSlug);
+
+      if (locale.value === 'ru') {
+        return {
+          title: data.seo_title,
+          description: data.seo_description
+        };
+      } else {
+        return {
+          title: data.seo_title_en,
+          description: data.seo_description_en
+        };
+      }
+    }
+  });
+
   watchEffect(() => {
     useHead({
-      title: `${title} | Каталог моделей Select Management`,
+      title: getSEO.value.title,
       meta: [
         {
+          property: 'og:title',
+          content: getSEO.value.title
+        },
+        {
+          property: 'og:description',
+          content: getSEO.value.description
+        },
+        {
           name: 'description',
-          content: t('seo.policy.title')
+          content: getSEO.value.description
         },
       ],
     });

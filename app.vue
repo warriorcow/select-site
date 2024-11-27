@@ -58,14 +58,6 @@
     useHead({
       meta: [
         {
-          property: 'og:title',
-          content: t('seo.main.title'),
-        },
-        {
-          property: 'og:description',
-          content: t('seo.main.description'),
-        },
-        {
           property: 'og:image',
           content: '/badge.png',
         },

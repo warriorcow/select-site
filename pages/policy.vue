@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  import {useGetSeoData} from '~/composables/useGetSeoData';
+
   const { immediateLocale } = storeToRefs(useWindowStore());
   const { t } = useI18n();
 
@@ -12,25 +14,7 @@
     },
   });
 
-  watchEffect(() => {
-    useHead({
-      title: data.value.acf.seo_title,
-      meta: [
-        {
-          property: 'og:title',
-          content: data.value.acf.seo_title,
-        },
-        {
-          property: 'og:description',
-          content: data.value.acf.seo_description,
-        },
-        {
-          name: 'description',
-          content: data.value.acf.seo_description
-        },
-      ],
-    });
-  });
+  useGetSeoData(data.value);
 </script>
 
 <template>

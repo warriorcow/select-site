@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  import {useGetSeoData} from '~/composables/useGetSeoData';
+
   const localePath = useLocalePath();
   const { canplaythroughMainVideo } = storeToRefs(useWindowStore());
   const { isMobile } = useWindowStore();
@@ -38,17 +40,7 @@
     }, 0);
   });
 
-  watchEffect(() => {
-    useHead({
-      title: data.value.acf.seo_title,
-      meta: [
-        {
-          name: 'description',
-          content: data.value.acf.seo_description
-        },
-      ],
-    });
-  });
+  useGetSeoData(data.value);
 </script>
 
 <template>
