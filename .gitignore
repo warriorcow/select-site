@@ -23,3 +23,6 @@ logs
 !.env.example
 
 *storybook.log!/.env
+
+# Local Netlify folder
+.netlify

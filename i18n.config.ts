@@ -101,6 +101,12 @@ export default defineI18nConfig(() => ({
             1: 'Home'
           }
         },
+        contacts: {
+          breadcrumbs: {
+            1: 'Home',
+            2: 'Contact us'
+          }
+        },
         profile: {
           actions: {
             portfolio: 'Portfolio',
@@ -258,6 +264,12 @@ export default defineI18nConfig(() => ({
         catalog: {
           breadcrumbs: {
             1: 'Главная'
+          }
+        },
+        contacts: {
+          breadcrumbs: {
+            1: 'Главная',
+            2: 'Контакты'
           }
         },
         profile: {

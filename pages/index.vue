@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import {useGetSeoData} from '~/composables/useGetSeoData';
+  import { useGetSeoData } from '~/composables/useGetSeoData';
 
   const localePath = useLocalePath();
   const { canplaythroughMainVideo } = storeToRefs(useWindowStore());

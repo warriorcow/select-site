@@ -194,7 +194,7 @@
           :label="$t('pages.profile.actions.see_other_models')"
           is-uppercase
           is-underline
-          @click="router.options.history.state.back ? router.back() : router.push(profileData.acf.back_link)"
+          @click="router.options.history.state.back ? router.go(-1) : router.push(profileData.acf.back_link)"
         />
       </div>
     </template>

@@ -1,26 +1,26 @@
 <script setup lang="ts">
   import type { Profile } from '~/models/profile';
+  import { findInTree } from '~/helpers/findInTree';
 
-  const genderMap = {
-    men: 9,
-    women: 8,
-  };
-
-  const { locale, t } = useI18n();
+  const { locale } = useI18n();
   const { isMobile } = useWindowStore();
+  const { immediateLocale } = storeToRefs(useWindowStore());
+  const localePath = useLocalePath();
 
   const props = defineProps<{
     params: Profile
   }>();
 
+  const { data } = await useApi(`/${immediateLocale.value}/wp-json/custom/v1/categories`);
+
   const videoRef: Ref<HTMLVideoElement | null> = ref(null);
 
-  const getGender = computed(() => props.params.categories.includes(genderMap.men) ? t('genders.men') : t('genders.women'));
-
   const breadcrumbsData = computed(() => {
+    const { name, url } = findInTree(data.value, (node) => node.id === props.params.acf.main_category.term_id);
+    console.log(url);
     return {
-      name: getGender.value,
-      url: `/models/${props.params.categories.includes(genderMap.men) ? 'men' : 'women'}`,
+      name,
+      url: localePath(`/models${url}`)
     };
   });
 
@@ -51,6 +51,7 @@
 
 <template>
   <div class="detail-header">
+
     <Breadcrumbs
       class="mb-auto mr-auto mt-[57px] max-tablet:mt-[34px] z-30"
       :items="[{

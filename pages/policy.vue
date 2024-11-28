@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import {useGetSeoData} from '~/composables/useGetSeoData';
+  import { useGetSeoData } from '~/composables/useGetSeoData';
 
   const { immediateLocale } = storeToRefs(useWindowStore());
   const { t } = useI18n();

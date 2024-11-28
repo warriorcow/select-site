@@ -1,6 +1,7 @@
 <script setup lang="ts">
-  import {useGetSeoData} from '~/composables/useGetSeoData';
+  import { useGetSeoData } from '~/composables/useGetSeoData';
 
+  const { locale } = useI18n();
   const { immediateLocale } = storeToRefs(useWindowStore());
 
   const { data } = await useApi(`/${immediateLocale.value}/wp-json/wp/v2/pages`, {
@@ -13,6 +14,19 @@
     },
   });
 
+  const filterByLanguage = computed(() => {
+    const titleKey = locale.value === 'ru' ? 'title' : 'title_en';
+    const nameKey = locale.value === 'ru' ? 'name' : 'name_en';
+
+    return data.value.acf.list.map(section => ({
+      title: section[titleKey],
+      items: section.items.map(item => ({
+        name: item[nameKey],
+        contacts: item.contacts,
+      })),
+    }));
+  });
+
   useGetSeoData(data.value);
 </script>
 
@@ -20,11 +34,11 @@
   <div>
     <Breadcrumbs
       :items="[{
-        name: 'Home',
+        name: $t('pages.contacts.breadcrumbs.1'),
         link: '/',
         active: true
       },{
-        name: 'contact us',
+        name: $t('pages.contacts.breadcrumbs.2'),
         link: '/contact',
         active: false
       }]"
@@ -37,7 +51,7 @@
 
       <div class="flex flex-wrap max-w-[1000px] gap-x-[90px] max-mobile:gap-x-[18px] gap-y-8 max-mobile:gap-y-[40px] justify-start mt-[75px] max-mobile:mt-8">
         <div
-          v-for="(category, index_category) in data.acf.list"
+          v-for="(category, index_category) in filterByLanguage"
           :key="index_category"
         >
           <h2
