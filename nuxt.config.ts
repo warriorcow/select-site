@@ -1,12 +1,14 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
+
   runtimeConfig: {
     public: {
       apiUrl: process.env.API_URL,
-      user: process.env.USER,
+      username: process.env.USERNAME,
       password: process.env.PASSWORD,
     },
   },
+
   i18n: {
     strategy: 'prefix_except_default',
     skipSettingLocaleOnNavigate: true,
@@ -18,6 +20,7 @@ export default defineNuxtConfig({
     vueI18n: './i18n.config.ts',
     baseUrl: 'https://my-nuxt-app.com'
   },
+
   app: {
     head: {
       link: [
@@ -42,6 +45,7 @@ export default defineNuxtConfig({
       viewport: 'width=device-width, initial-scale=1, viewport-fit=cover',
     }
   },
+
   vite: {
     server: {
       hmr: {
@@ -59,8 +63,10 @@ export default defineNuxtConfig({
       }
     }
   },
+
   css: ['../assets/scss/main.css', '../assets/scss/fonts.scss', 'vue-multiselect/dist/vue-multiselect.min.css', '@fancyapps/ui/dist/fancybox/fancybox.css'],
   plugins: ['../plugins/vuelidate.js', '../plugins/vue3-tel-input.client.ts', { src: '../plugins/vue-the-mask.js', mode: 'all' }],
+
   modules: [
     '@nuxt/eslint',
     'nuxt-svgo',
@@ -72,11 +78,14 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@vueuse/nuxt'
   ],
+
   viewport: {
     breakpoints: {
       desktop: 1201,
       tablet: 600,
       mobile: 321,
     }
-  }
+  },
+
+  compatibilityDate: '2025-01-30'
 });

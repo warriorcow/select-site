@@ -30,16 +30,6 @@
     query: {
       categories: categoryId,
       acf_format: 'standard'
-    },
-    onResponse({ response }): Promise<void> | void {
-      if (response._data.length === 0) {
-        nextTick(() => {
-          throw showError({
-            statusCode: 404,
-            fatal: true
-          });
-        });
-      }
     }
   });
 

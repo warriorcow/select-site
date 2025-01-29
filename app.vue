@@ -17,7 +17,7 @@
 
   if (import.meta.server) {
     immediateLocale.value = locale.value;
-    const { data } = await useApi(`/wp-json/jwt-auth/v1/token?username=${config.public.user}&password=${config.public.password}`, {
+    const { data } = await useApi(`/wp-json/jwt-auth/v1/token?username=${config.public.username}&password=${config.public.password}`, {
       method: 'post',
       pick: ['token']
     });
