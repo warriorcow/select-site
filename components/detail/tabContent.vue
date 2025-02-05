@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import gsap from 'gsap';
+  import {SwiperVirtual} from "#imports";
 
   const props = defineProps<{
     type: 'image' | 'video'
@@ -85,6 +86,7 @@
         <div class="tab-videos__arrow tab-videos__arrow--prev">
           <SvgoArrow />
         </div>
+
         <Swiper
           ref="swiperRef"
           :modules="[SwiperNavigation]"
@@ -98,7 +100,7 @@
             prevEl: '.tab-videos__arrow--prev',
           }"
           @slide-change-transition-end="(e) => {
-            activeVideoSlide = e.activeIndex
+            activeVideoSlide = e.realIndex
           }"
         >
           <SwiperSlide
@@ -109,7 +111,7 @@
               <UiVideoPlayer
                 :is-vertical="video.vertical"
                 :is-paused="activeVideoSlide !== index"
-                :src="video.link"
+                :id-video="video.link"
                 :cover="video.image.url"
               />
             </div>

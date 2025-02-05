@@ -26,12 +26,10 @@
 
   const catalogCategorySlug = pull(Object.values(route.params), '').join('-');
   const categoryId = findBySlug(categories.value[route.params.catalog], catalogCategorySlug).id;
-  const { data: models } = await useApi(`/${immediateLocale.value}/wp-json/wp/v2/posts`, {
+  const { data: models } = await useApi(`/${immediateLocale.value}/wp-json/custom/v1/posts`, {
     query: {
       categories: categoryId,
-      acf_format: 'standard',
-      orderBy: 'title',
-      order: 'asc'
+      acf_format: 'standard'
     }
   });
 

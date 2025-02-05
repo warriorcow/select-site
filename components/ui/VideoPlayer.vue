@@ -1,41 +1,40 @@
 <script setup lang="ts">
-  import type { VkPlayer } from '~/models/vkVideo';
+import { vueVimeoPlayer } from 'vue-vimeo-player';
 
   const props = defineProps<{
-    src?: string
+    idVideo?: string
     cover: string
     isPaused?: boolean
     isVertical?: boolean
   }>();
 
-  const vkIframeRef:Ref<HTMLElement | null> = ref(null);
+  const iframeRef:Ref<HTMLElement | null> = ref(null);
 
   const isPlayedVideo = ref(false);
-  const player:Ref<VkPlayer | null> = ref(null);
-  const videoSrc = computed(() => `${props.src}&js_api=1`);
-
-  onMounted((): void => {
-    player.value = VK.VideoPlayer(vkIframeRef.value);
-
-    player.value.on('paused', () => {
-      isPlayedVideo.value = false;
-    });
-
-    player.value.on('ended', () => {
-      isPlayedVideo.value = false;
-    });
-  });
 
   watch(() => props.isPaused, (value: boolean): void => {
     if (value) {
-      player.value.pause();
+      iframeRef.value.pause();
+      iframeRef.value.update(props.idVideo);
+      isPlayedVideo.value = false;
     }
   });
 
+  function onPlay() {
+    iframeRef.value.play();
+  }
+
+  function onPause() {
+    iframeRef.value.pause();
+    isPlayedVideo.value = false;
+  }
+
   function hideVideoCover() {
     isPlayedVideo.value = true;
-    player.value?.seek(0);
-    player.value?.play();
+    setTimeout(() => {
+      onPlay();
+    }, 200)
+
   }
 </script>
 
@@ -64,16 +63,14 @@
       </div>
     </Transition>
 
-    <iframe
-      v-show="isPlayedVideo"
-      ref="vkIframeRef"
-      class="video-player__iframe"
-      :src="videoSrc"
-      width="100%"
-      height="100%"
-      allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+    <vueVimeoPlayer
+        :key="idVideo"
+        class="video-player__video"
+        ref="iframeRef"
+        :video-id="idVideo"
+        @play="onPlay"
+        @pause="onPause"
     />
-
   </div>
 </template>
 
@@ -82,11 +79,11 @@
   @apply relative aspect-[7/3.94];
 
   &--vertical {
-    @apply aspect-[2/3.8] mx-auto max-w-[430px];
+    @apply aspect-[2/3.6] mx-auto max-w-[430px];
   }
 
   &__cover {
-    @apply absolute w-full h-full cursor-pointer bg-[#d3d3d3];
+    @apply absolute w-full h-full cursor-pointer bg-[#d3d3d3] z-[1000];
 
     & img {
       @apply w-full h-full object-cover pointer-events-none;
@@ -95,6 +92,14 @@
 
   &__icon {
     @apply absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-[67px] h-[67px] max-mobile:w-[49px] max-mobile:h-[49px];
+  }
+
+  &__video {
+    @apply z-0 w-full h-full;
+
+    & > * {
+      @apply w-full h-full;
+    }
   }
 
   :deep {

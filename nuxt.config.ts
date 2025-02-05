@@ -38,7 +38,7 @@ export default defineNuxtConfig({
       ],
       script: [
         {
-          src: 'https://vk.com/js/api/videoplayer.js'
+          src: 'https://player.vimeo.com/api/player.js'
         }
       ],
       charset: 'utf-8',
