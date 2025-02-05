@@ -91,7 +91,7 @@
         :srcset="params.acf.model_main_image.url"
       >
       <img
-        :src="params.acf.model_main_image_mobile.url"
+        :src="params.acf.model_main_image_mobile.sizes?.large"
         :alt="shortName"
       >
     </picture>

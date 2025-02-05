@@ -13,10 +13,13 @@
 
   const currentImageIndex = ref(0);
   const isVisibleCategories = ref(false);
-  const isHovered = ref(false);
   const intervalId = ref(null);
 
-  const currentImage = computed(() => props.params.images[currentImageIndex.value]?.url || '');
+  const currentImage = computed(() => {
+    return !isMobile.value
+        ? props.params.images[currentImageIndex.value]?.url || ''
+        : props.params.images[currentImageIndex.value].sizes?.large || '';
+  });
 
   const buttonSize = computed((): ButtonSizesKeys => {
     if (isTablet.value) {
@@ -38,7 +41,7 @@
       } else {
         currentImageIndex.value++;
       }
-    }, 2000000000000000);
+    }, 4000);
   });
 
   onBeforeUnmount(() => {
@@ -49,11 +52,7 @@
 </script>
 
 <template>
-  <div
-    class="category-card"
-    @mouseenter="isHovered = true"
-    @mouseleave="onMouseLeave"
-  >
+  <div class="category-card">
     <Transition
       name="fade"
       mode="in-out"

@@ -1,8 +1,7 @@
 <script setup lang="ts">
   import type { RootCategory } from '~/models/category';
   import { useGetSeoData } from '~/composables/useGetSeoData';
-
-
+  
   const { immediateLocale } = storeToRefs(useWindowStore());
   const { data: pageData } = await useApi<RootCategory>(`/${immediateLocale.value}/wp-json/wp/v2/categories?slug=models`);
   const { data: categoriesData } = await useApi<RootCategory>(`/${immediateLocale.value}/wp-json/custom/v1/categories`);

@@ -53,16 +53,17 @@
       <template v-if="params.acf.preview_image">
         <img
           class="card__cover"
-          :src="params.acf.preview_image[0]?.url"
+          :src="params.acf.preview_image[0]?.sizes.large"
           :alt="getFullName"
         >
         <img
+          v-if="params.acf.preview_image[1]"
           class="card__cover"
           :class="[
             'opacity-0 absolute top-0 left-0 ',
             isHovered && 'opacity-100 !scale-110',
           ]"
-          :src="params.acf.preview_image[1]?.url"
+          :src="params.acf.preview_image[1]?.sizes.large"
           :alt="getFullName"
         >
       </template>

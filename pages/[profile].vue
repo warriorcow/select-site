@@ -63,8 +63,10 @@
       name: t(`pages.profile.actions.${name}`),
       cover: profileData.value.acf[`${key}_image`]?.url || '',
       key,
-      coverMobile: profileData.value.acf[`${key}_image_mobile`]?.url || '',
-      items: profileData.value.acf[key]?.map((image: { url: string }) => image.url) || [],
+      coverMobile: profileData.value.acf[`${key}_image_mobile`].sizes?.large || '',
+      items: !isMobile.value
+          ? profileData.value.acf[key]?.map((image: { url: string }) => image.url) || []
+          : profileData.value.acf[key]?.map((image: { sizes: string }) => image.sizes?.large) || [],
       hidden: profileData.value.acf.switch_tabs.includes(key)
     });
 
@@ -83,10 +85,12 @@
   const tabs = computed(() => {
     const createItem = (name: string, type: string, key: string) => ({
       name: t(`pages.profile.actions.${name}`),
-      cover: profileData.value.acf[`${key}_image`]?.url || '',
+      cover: profileData.value.acf[`${key}_image`].sizes?.large || '',
       type,
       key,
-      items: profileData.value.acf[name]?.map((item: { url: string }) => type === 'image' ? item.url : item) || [],
+      items: !isMobile.value
+          ? profileData.value.acf[name]?.map((item: { url: string }) => type === 'image' ? item.url : item) || []
+          : profileData.value.acf[name]?.map((item: { sizes: string }) => type === 'image' ? item.sizes?.large : item) || [],
       hidden: profileData.value.acf.switch_tabs.includes(key)
     });
 
