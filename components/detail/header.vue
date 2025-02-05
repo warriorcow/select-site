@@ -121,7 +121,8 @@
     text-primary
     min-h-[400px]
     bg-[#d3d3d3]
-    justify-end;
+    justify-end
+    gap-2.5;
 
   &__cover {
     @apply
