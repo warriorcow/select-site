@@ -29,7 +29,9 @@
   const { data: models } = await useApi(`/${immediateLocale.value}/wp-json/wp/v2/posts`, {
     query: {
       categories: categoryId,
-      acf_format: 'standard'
+      acf_format: 'standard',
+      orderBy: 'title',
+      order: 'asc'
     }
   });
 
