@@ -2,8 +2,10 @@
   withDefaults(defineProps<{
     label: string
     placeholder?: string
+    maxLength?: number
   }>(), {
-    placeholder: ''
+    placeholder: '',
+    maxLength: 500
   });
 
   const model = defineModel<string>({ required: true });
@@ -19,6 +21,7 @@
 
     <textarea
       v-model="model"
+      :maxlength="maxLength"
       class="focus:outline-secondary outline-offset-0 resize-none min-h-[80px] w-full border border-[#D9D9D9] py-1.5 m-0 px-2.5 rounded-[5px] placeholder-accent text-secondary text-xs"
       :placeholder="placeholder"
     />

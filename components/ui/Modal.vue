@@ -61,6 +61,7 @@
                     v-model="formState.fullName"
                     :invalid="v$.fullName.$error"
                     :placeholder="$t('becomeAModel.form.first.namePlaceholder')"
+                    maxlength="50"
                     @blur="v$.fullName.$touch"
                   />
                   <div class="gap-x-[15px] gap-y-[12px] max-mobile:gap-y-2.5 grid grid-cols-2 max-mobile:grid-cols-1 w-full">
@@ -188,6 +189,7 @@
                     />
                     <UiTextarea
                       v-model="formState.about"
+                      :max-length="500"
                       class="col-span-2 max-mobile:col-span-1"
                       :label="$t('becomeAModel.form.third.about')"
                       :placeholder="$t('becomeAModel.form.third.aboutPlaceholder')"
