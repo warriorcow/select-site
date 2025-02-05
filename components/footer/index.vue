@@ -13,13 +13,20 @@
     }
     return 'md';
   });
+
+  const copyrightAutoText = computed(() => {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    return `©${currentYear} select management`;
+  });
 </script>
 
 <template>
   <footer class="footer">
-    <div class="footer__copyright">
-      ©2024 select management
-    </div>
+    <div
+      class="footer__copyright"
+      v-html="copyrightAutoText"
+    />
     <UiButton
       :label="$t('footer.policyText')"
       color="accent"
