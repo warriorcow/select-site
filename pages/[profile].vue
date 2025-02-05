@@ -107,6 +107,12 @@
     }, 500);
   });
 
+  onBeforeMount(() => {
+    setTimeout(() => {
+      scrollTo({ top: 0 });
+    }, 200);
+  })
+
   function clickPortfolioButton(index: number): void {
     setActivePortfolioIndex(index);
     detailCategoryRef.value?.scrollIntoView({ block: 'start', behavior: 'smooth' });
