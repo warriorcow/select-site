@@ -23,7 +23,6 @@ export const useProfileStore = defineStore('profile', {
   },
   actions: {
     setActivePortfolioIndex(index: number): void {
-      this.activePortfolioIndex = 4;
       setTimeout(() => {
         this.activePortfolioIndex = index;
       }, 0);

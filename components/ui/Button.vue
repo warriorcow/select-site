@@ -40,6 +40,7 @@
     isCenter?: boolean;
     isSelectColor?: boolean;
     isSelectColorHover?: boolean;
+    isDisabled?: boolean;
   }>(), {
     to: null,
     color: 'secondary',
@@ -62,7 +63,8 @@
       isUppercase && 'ui-button--uppercase',
       isCenter && 'ui-button--center',
       isSelectColor && 'ui-button--select-color',
-      isSelectColorHover && 'ui-button--select-color-hover'
+      isSelectColorHover && 'ui-button--select-color-hover',
+      isDisabled && 'pointer-events-none'
     ]"
   >
     {{ label }}

@@ -9,6 +9,9 @@
 
       this.fancybox = Fancybox;
       this.fancybox.bind(this.$refs.container, '[data-fancybox]', {
+        Images: {
+          zoom: false
+        },
         ...(this.options || {}),
       });
     },
@@ -18,6 +21,9 @@
         this.fancybox.close();
 
         this.fancybox.bind(this.$refs.container, '[data-fancybox]', {
+          Images: {
+            zoom: false
+          },
           ...(this.options || {}),
         });
       }

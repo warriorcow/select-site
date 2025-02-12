@@ -7,7 +7,7 @@
 
   const { isMobile, isTablet, immediateLocale } = storeToRefs(useWindowStore());
   const { setActivePortfolioIndex, setActiveTabIndex } = useProfileStore();
-  const { isAnimatedTab, transitionTime } = storeToRefs(useProfileStore());
+  const { isAnimatedTab, transitionTime, activePortfolioIndex } = storeToRefs(useProfileStore());
   const route = useRoute();
   const router = useRouter();
   const { t } = useI18n();
@@ -111,15 +111,16 @@
     }, 500);
   });
 
-  onBeforeMount(() => {
-    setTimeout(() => {
-      scrollTo({ top: 0 });
-    }, 200);
-  })
-
   function clickPortfolioButton(index: number): void {
-    setActivePortfolioIndex(index);
-    detailCategoryRef.value?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    if (index === activePortfolioIndex.value) {
+      detailCategoryRef.value?.openTab(index); // Вызов функции из ребенк
+      detailCategoryRef.value?.rootEl.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    } else {
+      setActivePortfolioIndex(index);
+      setTimeout(() => {
+        detailCategoryRef.value?.rootEl.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      }, 700)
+    }
   }
 
   function clickTabButton(index: number): void {
@@ -127,7 +128,6 @@
     if (isAnimatedTab.value) return;
     setActiveTabIndex(index);
     setTimeout(() => {
-
       document.querySelectorAll('.tab-scroll-area')[index].scrollIntoView({ block: 'start', behavior: 'smooth' });
       transitionTime.value = 0.4;
     }, 200);
@@ -187,11 +187,11 @@
         </template>
       </DetailHeader>
 
-      <DetailCharacteristics 
+      <DetailCharacteristics
         :params="profileData.acf.params"
       />
-      <div ref="detailCategoryRef" />
-      <DetailCategory :params="portfolios" />
+
+      <DetailCategory ref="detailCategoryRef" :params="portfolios" />
       <DetailTabs
         v-if="tabs.length && isVisibleTab"
         ref="detailTabsRef"
@@ -208,7 +208,5 @@
         />
       </div>
     </template>
-
-
   </div>
 </template>

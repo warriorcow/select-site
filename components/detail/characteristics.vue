@@ -49,8 +49,8 @@
 </script>
 
 <template>
-  <div class="flex flex-col items-center px-4 pt-[30px] max-tablet:pt-[20px] pb-[40px] max-tablet:pb-[30px] max-mobile:p-5 mb-[25px] max-tablet:mb-[20px] max-mobile:mb-0 justify-center relative">
-    <UiCollapsible v-if="isMobile && !isEmpty(characteristicsData)">
+  <div class="flex flex-col items-center px-4 pt-[30px] max-tablet:pt-[20px] pb-[40px] max-tablet:pb-0 max-tablet:p-5 mb-[25px] justify-center relative">
+    <UiCollapsible v-if="isTablet && !isEmpty(characteristicsData)">
       <UiCollapsibleTrigger>
         <UiButton
           :label="$t('pages.profile.characteristic.title')"
@@ -62,12 +62,12 @@
       </UiCollapsibleTrigger>
       <UiCollapsibleContent>
         <div
-          class="pt-[15px] flex max-mobile:flex-wrap justify-center max-mobile:justify-center gap-x-6 max-mobile:gap-y-4 max px-4 absolute max-mobile:static bottom-0 max-w-[916px] max-tablet:max-w-[700px] w-full max-mobile:mt-4"
+          class="pt-[15px] flex max-tablet:flex-wrap justify-center max-tablet:justify-center gap-x-6 max-tablet:gap-y-4 max px-4 absolute max-tablet:static bottom-0 max-w-[916px] max-tablet:max-w-[700px] w-full max-tablet:mt-4"
         >
           <div
             v-for="(item, key) in characteristicsData"
             :key
-            class="flex gap-x-4 max-tablet:gap-x-3 max-mobile:gap-x-2"
+            class="flex gap-x-4 max-tablet:gap-x-3 max-tablet:gap-x-2"
           >
             <div
               class="text-md max-tablet:text-xs uppercase"
@@ -81,7 +81,7 @@
         </div>
       </UiCollapsibleContent>
     </UiCollapsible>
-    <template v-else-if="isEmpty(characteristicsData)">
+    <template v-else-if="!isEmpty(characteristicsData)">
       <UiButton
         :label="$t('pages.profile.characteristic.title')"
         :size="buttonSize"
@@ -92,15 +92,15 @@
       <Transition name="fade">
         <div
           v-if="isVisibleCharacteristics"
-          class="flex max-mobile:flex-wrap justify-center max-mobile:justify-center gap-x-6 max-mobile:gap-y-4 max px-4 absolute max-mobile:static bottom-0 max-w-[916px] max-tablet:max-w-[700px] w-full max-mobile:mt-4"
+          class="flex max-tablet:flex-wrap justify-center max-tablet:justify-center gap-x-6 max-tablet:gap-y-4 max px-4 absolute max-tablet:static bottom-0 max-w-[1200px] max-tablet:max-w-[600px] w-full max-tablet:mt-4"
         >
           <div
             v-for="(item, key) in characteristicsData"
             :key
-            class="flex gap-x-4 max-tablet:gap-x-3 max-mobile:gap-x-2"
+            class="flex gap-x-4 max-tablet:gap-x-3 max-tablet:gap-x-2"
           >
             <div
-              class="text-md max-tablet:text-xs uppercase"
+              class="text-md max-tablet:text-xs uppercase whitespace-nowrap"
               v-text="$t(`pages.profile.characteristic.${key}`)"
             />
             <div

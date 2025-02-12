@@ -10,6 +10,7 @@
 
   const { activePortfolioIndex } = storeToRefs(useProfileStore());
   const hasOpenTab = ref(false);
+  const rootEl:Ref<HTMLElement> = ref(null)
   const portfolioCoverRef = ref(null);
   const moreImagesRef:Ref<HTMLElement[]> = ref([]);
   const accordionContentRef = ref([]);
@@ -129,87 +130,91 @@
       duration: 0
     });
   });
+
+  defineExpose({ openTab, rootEl });
 </script>
 
 <template>
-  <div
-    v-if="params.filter(portfolio => !portfolio.hidden).length"
-    class="portfolio flex overflow-hidden"
-  >
+  <div ref="rootEl">
     <div
-      ref="portfolioCoverRef"
-      class="flex relative"
+      v-if="params.filter(portfolio => !portfolio.hidden).length"
+      class="portfolio flex overflow-hidden"
     >
       <div
-        v-for="(item, index) in params.filter(portfolio => !portfolio.hidden)"
-        :key="index"
+        ref="portfolioCoverRef"
+        class="flex relative"
       >
-        <div>
-          <div class="portfolio__header w-dvw">
-            <div class="portfolio__cover">
-              <picture v-if="item.cover">
-                <source
-                  media="(min-width: 768px)"
-                  :srcset="item.cover"
-                >
-                <img
-                  :src="item.coverMobile"
-                  :alt="item.name"
-                >
-              </picture>
-            </div>
-            <div class="flex flex-col items-center">
-              <div class="portfolio__title">
-                {{ item.name }}
+        <div
+          v-for="(item, index) in params.filter(portfolio => !portfolio.hidden)"
+          :key="index"
+        >
+          <div>
+            <div class="portfolio__header w-dvw">
+              <div class="portfolio__cover">
+                <picture v-if="item.cover">
+                  <source
+                    media="(min-width: 768px)"
+                    :srcset="item.cover"
+                  >
+                  <img
+                    :src="item.coverMobile"
+                    :alt="item.name"
+                  >
+                </picture>
               </div>
-              <div class="portfolio__actions">
-                <UiButton
-                  class="text-lg max-tablet:text-sm -mt-1.5 max-mobile:m-2"
-                  :label="`${t('pages.profile.actions.view_portfolio')} ${item.name}`"
-                  color="primary"
-                  is-uppercase
-                  is-underline-hover
-                  @click="toggleTab(index)"
-                />
+              <div class="flex flex-col items-center">
+                <div class="portfolio__title">
+                  {{ item.name }}
+                </div>
+                <div class="portfolio__actions">
+                  <UiButton
+                    class="text-lg max-tablet:text-sm -mt-1.5 max-mobile:m-2"
+                    :label="`${t('pages.profile.actions.view_portfolio')} ${item.name}`"
+                    color="primary"
+                    is-uppercase
+                    is-underline
+                    @click="toggleTab(index)"
+                  />
+                </div>
               </div>
             </div>
-          </div>
 
-          <div
-            ref="accordionContentRef"
-            class="overflow-hidden h-0"
-          >
-            <UiFancybox class="px-2.5">
-              <div class="grid grid-cols-2 mx-auto gap-2.5 max-w-[915px] pt-[50px] max-mobile:pt-[30px]">
-                <UiPhotoPortfolio
-                  v-for="(img, index_photo) in item.items.slice(0, 4)"
-                  :key="index_photo"
-                  :src="img"
-                  :index="index"
-                />
-              </div>
-              <div
-                ref="moreImagesRef"
-                class="overflow-hidden h-0"
-              >
-                <div class="grid grid-cols-2 mx-auto gap-2.5 mt-2.5 max-w-[915px]">
+            <div
+              ref="accordionContentRef"
+              class="overflow-hidden h-0"
+            >
+              <UiFancybox class="px-2.5">
+                <div class="grid grid-cols-2 mx-auto gap-2.5 max-w-[915px] pt-[50px] max-mobile:pt-[30px]">
                   <UiPhotoPortfolio
-                    v-for="(img, index_nested_photo) in item.items.slice(4)"
-                    :key="index_nested_photo"
+                    v-for="(img, index_photo) in item.items.slice(0, 4)"
+                    :key="index_photo"
                     :src="img"
                     :index="index"
                   />
                 </div>
-              </div>
-            </UiFancybox>
-            <UiButton
-              v-if="item.items.length > 4"
-              :label="!showAllImages ? $t('pages.profile.actions.show_all') : $t('pages.profile.actions.hide')"
-              is-underline
-              is-uppercase
-              class="mx-auto mt-[40px] max-mobile:mt-[15px] mb-[30px] max-mobile:mb-[15px] max-mobile:text-xs"
-              @click="toggleTabMoreImages"
-            />
+                <div
+                  ref="moreImagesRef"
+                  class="overflow-hidden h-0"
+                >
+                  <div class="grid grid-cols-2 mx-auto gap-2.5 mt-2.5 max-w-[915px]">
+                    <UiPhotoPortfolio
+                      v-for="(img, index_nested_photo) in item.items.slice(4)"
+                      :key="index_nested_photo"
+                      :src="img"
+                      :index="index"
+                    />
+                  </div>
+                </div>
+              </UiFancybox>
+              <UiButton
+                v-if="item.items.length > 4"
+                :label="!showAllImages ? $t('pages.profile.actions.show_all') : $t('pages.profile.actions.hide')"
+                is-underline
+                is-uppercase
+                class="mx-auto mt-[40px] max-mobile:mt-[15px] mb-[30px] max-mobile:mb-[15px] max-mobile:text-xs"
+                @click="toggleTabMoreImages"
+              />
+            </div>
           </div>
         </div>
       </div>

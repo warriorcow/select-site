@@ -40,6 +40,7 @@ export default defineI18nConfig(() => ({
           second: {
             title: 'Measurements',
             bust: 'Bust',
+            shoes: 'Shoes',
             waist: 'Waist',
             hips: 'Hips',
             clothingSize: 'Clothing Size',
@@ -124,6 +125,7 @@ export default defineI18nConfig(() => ({
             title: 'Model Parameters',
             height: 'Height',
             bust: 'Bust',
+            shoes: 'Shoes',
             waist: 'Waist',
             hips: 'Hips',
             hair: 'Hair',
@@ -205,6 +207,7 @@ export default defineI18nConfig(() => ({
           second: {
             title: 'Параметры',
             bust: 'Грудь',
+            shoes: 'Размер обуви',
             waist: 'Талия',
             hips: 'Бёдра',
             clothingSize: 'Размер одежды',
@@ -289,6 +292,7 @@ export default defineI18nConfig(() => ({
             title: 'Параметры модели',
             height: 'Рост',
             bust: 'Бюст',
+            shoes: 'Размер обуви',
             waist: 'Талия',
             hips: 'Бедра',
             hair: 'Волосы',

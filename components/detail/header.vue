@@ -17,7 +17,6 @@
 
   const breadcrumbsData = computed(() => {
     const { name, url } = findInTree(data.value, (node) => node.id === props.params.acf.main_category.term_id);
-    console.log(url);
     return {
       name,
       url: localePath(`/models${url}`)
