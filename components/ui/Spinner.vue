@@ -3,7 +3,9 @@
 </script>
 
 <template>
-  <div class="spinner"/>
+  <client-only>
+    <div class="spinner" />
+  </client-only>
 </template>
 
 <style scoped lang="scss">

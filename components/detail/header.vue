@@ -16,7 +16,7 @@
   const videoRef: Ref<HTMLVideoElement | null> = ref(null);
 
   const breadcrumbsData = computed(() => {
-    const { name, url } = findInTree(data.value, (node) => node.id === props.params.acf.main_category.term_id);
+    const { name, url } = findInTree(data.value, (node) => node.id === props.params.acf.main_category.term_id) || { name: '', url: '' };
     return {
       name,
       url: localePath(`/models${url}`)

@@ -103,7 +103,7 @@
 <style lang="scss">
 .page-enter-active,
 .page-leave-active {
-  transition: all .4s;
+  transition: all 300ms;
 }
 .page-enter-from,
 .page-leave-to {

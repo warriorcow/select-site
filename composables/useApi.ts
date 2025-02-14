@@ -11,16 +11,6 @@ export function useApi<T>(
     ...options,
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    $fetch: useNuxtApp().$api,
-    onResponse({ response }): Promise<void> | void {
-      if (response._data.length === 0) {
-        if (import.meta.server) {
-          throw showError({
-            statusCode: 404
-          });
-        }
-        router.back();
-      }
-    }
+    $fetch: useNuxtApp().$api
   });
 }

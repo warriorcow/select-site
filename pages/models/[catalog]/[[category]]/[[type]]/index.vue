@@ -1,130 +1,187 @@
 <script setup lang="ts">
-  import type { ButtonSizesKeys } from '~/components/ui/Button.vue';
-  import { useWindowStore } from '~/stores/window';
-  import { findBySlug } from '~/helpers/findBySlug';
-  import pull from 'lodash/pull';
-  import pick from 'lodash/pick';
-  import type { Category, RootCategory } from '~/models/category';
-  const localePath = useLocalePath();
-  const { isMobile, isTablet, immediateLocale } = storeToRefs(useWindowStore());
-  const { t, locale } = useI18n();
-  const route = useRoute();
-
-  const createdSlug = pull(Object.values(pick(route.params, ['catalog', 'category'])), '').join('-');
-
-  const { data: categories } = await useApi<RootCategory>(`/${immediateLocale.value}/wp-json/custom/v1/categories`);
-  const title = `${categories.value[route.params.catalog].name} ${route.params.category ? findBySlug(categories.value[route.params.catalog], createdSlug).name : ''}`;
+import type { ButtonSizesKeys } from '~/components/ui/Button.vue';
+import { useWindowStore } from '~/stores/window';
+import { findBySlug } from '~/helpers/findBySlug';
+import pull from 'lodash/pull';
+import pick from 'lodash/pick';
+import type { Category, RootCategory } from '~/models/category';
 
 
-  const menu = computed((): Category => {
-    return findBySlug(categories.value[route.params.catalog], createdSlug);
+const localePath = useLocalePath();
+const { t, locale } = useI18n();
+const route = useRoute();
+
+const { isMobile, isTablet, immediateLocale } = storeToRefs(useWindowStore());
+
+const totalPages = ref(null);
+const offsetPage = ref(0);
+const observer = ref();
+const loadTrigger = ref(null);
+const isLoading = ref(false);
+const arrayModels = ref([]);
+const titleKey = ref(0);
+const titleRef = ref();
+
+
+const { data: categories } = await useApi<RootCategory>(`/${immediateLocale.value}/wp-json/custom/v1/categories`);
+
+const PER_PAGE_COUNT = isMobile.value ? 3 : isTablet.value ? 5 : 7;
+const createdSlug = pull(Object.values(pick(route.params, ['catalog', 'category'])), '').join('-');
+const title = `${categories.value[route.params.catalog].name} ${route.params.category ? findBySlug(categories.value[route.params.catalog], createdSlug).name : ''}`;
+const catalogCategorySlug = pull(Object.values(route.params), '').join('-');
+const categoryId = findBySlug(categories.value[route.params.catalog], catalogCategorySlug).id;
+
+const getBreadcrumbs = computed(() => {
+  return [
+    {
+      name: t('pages.catalog.breadcrumbs.1'),
+      link: '/',
+      active: true
+    },
+    {
+      name: categories.value[route.params.catalog].name,
+      link: '',
+      active: false
+    }
+  ];
+});
+
+const buttonSize = computed((): ButtonSizesKeys => {
+  if (isTablet.value) {
+    return 'md';
+  }
+  if (isMobile.value) {
+    return 'xs';
+  }
+  return 'xl';
+});
+
+const subButtonSize = computed((): ButtonSizesKeys => {
+  if (isTablet.value) {
+    return 'sm';
+  }
+  if (isMobile.value) {
+    return 'xs';
+  }
+  return 'md';
+});
+
+const currentCategory = computed(() => {
+  return route.params.category;
+});
+
+const menu = computed((): Category => {
+  return findBySlug(categories.value[route.params.catalog], createdSlug);
+});
+
+const hasType = computed((): boolean => {
+  return !!route.params.type;
+});
+
+const allModelsLoaded = computed((): boolean => {
+  return Number(totalPages.value) === arrayModels.value.length
+})
+
+const getSEO = computed(() => {
+  if (hasType.value) {
+    const createdSlug = pull(Object.values(pick(route.params, ['catalog', 'category', 'type'])), '').join('-');
+    const data = findBySlug(categories.value[route.params.catalog], createdSlug);
+
+    if (locale.value === 'ru') {
+      return {
+        title: data.seo_title,
+        description: data.seo_description
+      };
+    } else {
+      return {
+        title: data.seo_title_en,
+        description: data.seo_description_en
+      };
+    }
+  } else {
+    const createdSlug = pull(Object.values(pick(route.params, ['catalog', 'category'])), '').join('-');
+    const data = findBySlug(categories.value[route.params.catalog], createdSlug);
+
+    if (locale.value === 'ru') {
+      return {
+        title: data.seo_title,
+        description: data.seo_description
+      };
+    } else {
+      return {
+        title: data.seo_title_en,
+        description: data.seo_description_en
+      };
+    }
+  }
+});
+
+onMounted(() => {
+  setTimeout(() => {
+    observer.value = new IntersectionObserver(
+        async ([entry]) => {
+          if (entry.isIntersecting) {
+            await fetchModels();
+          }
+        },
+        { threshold: 0, rootMargin: '0px 0px 0px 0px' }
+    );
+
+    if (loadTrigger.value) {
+      observer.value.observe(loadTrigger.value); // Начинаем наблюдение за триггером
+    }
+  }, 10);
+});
+
+watchEffect(() => {
+  useHead({
+    title: getSEO.value.title,
+    meta: [
+      {
+        property: 'og:title',
+        content: getSEO.value.title
+      },
+      {
+        property: 'og:description',
+        content: getSEO.value.description
+      },
+      {
+        name: 'description',
+        content: getSEO.value.description
+      },
+    ],
   });
+});
 
-  const hasType = computed((): boolean => {
-    return !!route.params.type;
-  });
+await fetchModels();
 
-  const catalogCategorySlug = pull(Object.values(route.params), '').join('-');
-  const categoryId = findBySlug(categories.value[route.params.catalog], catalogCategorySlug).id;
+async function fetchModels() {
+  if (isLoading.value) return;
+  if (observer.value && loadTrigger.value && allModelsLoaded.value) {
+    observer.value.unobserve(loadTrigger.value);
+    return;
+  }
+
+  isLoading.value = true;
   const { data: models } = await useApi(`/${immediateLocale.value}/wp-json/custom/v1/posts`, {
     query: {
       categories: categoryId,
-      acf_format: 'standard'
-    }
-  });
-
-  const titleKey = ref(0);
-  const titleRef = ref();
-  const getBreadcrumbs = computed(() => {
-    return [
-      {
-        name: t('pages.catalog.breadcrumbs.1'),
-        link: '/',
-        active: true
-      },
-      {
-        name: categories.value[route.params.catalog].name,
-        link: '',
-        active: false
-      }
-    ];
-  });
-  const buttonSize = computed((): ButtonSizesKeys => {
-    if (isTablet.value) {
-      return 'md';
-    }
-    if (isMobile.value) {
-      return 'xs';
-    }
-    return 'xl';
-  });
-  const subButtonSize = computed((): ButtonSizesKeys => {
-    if (isTablet.value) {
-      return 'sm';
-    }
-    if (isMobile.value) {
-      return 'xs';
-    }
-    return 'md';
-  });
-  const currentCategory = computed(() => {
-    return route.params.category;
-  });
-
-
-  const getSEO = computed(() => {
-    if (hasType.value) {
-      const createdSlug = pull(Object.values(pick(route.params, ['catalog', 'category', 'type'])), '').join('-');
-      const data = findBySlug(categories.value[route.params.catalog], createdSlug);
-
-      if (locale.value === 'ru') {
-        return {
-          title: data.seo_title,
-          description: data.seo_description
-        };
-      } else {
-        return {
-          title: data.seo_title_en,
-          description: data.seo_description_en
-        };
-      }
-    } else {
-      const createdSlug = pull(Object.values(pick(route.params, ['catalog', 'category'])), '').join('-');
-      const data = findBySlug(categories.value[route.params.catalog], createdSlug);
-
-      if (locale.value === 'ru') {
-        return {
-          title: data.seo_title,
-          description: data.seo_description
-        };
-      } else {
-        return {
-          title: data.seo_title_en,
-          description: data.seo_description_en
-        };
+      acf_format: 'standard',
+      per_page: PER_PAGE_COUNT,
+      offset: offsetPage.value
+    },
+    onResponse({ response }): Promise<void> | void {
+      if (!totalPages.value) {
+        totalPages.value = response?.headers.get('X-WP-Total');
       }
     }
   });
 
-  watchEffect(() => {
-    useHead({
-      title: getSEO.value.title,
-      meta: [
-        {
-          property: 'og:title',
-          content: getSEO.value.title
-        },
-        {
-          property: 'og:description',
-          content: getSEO.value.description
-        },
-        {
-          name: 'description',
-          content: getSEO.value.description
-        },
-      ],
-    });
-  });
+  arrayModels.value.push(...models.value);
+  offsetPage.value += PER_PAGE_COUNT;
+  isLoading.value = false;
+}
+
 </script>
 
 <template>
@@ -132,72 +189,75 @@
     <div class="grid grid-cols-[1fr_auto_1fr]">
       <Breadcrumbs :items="getBreadcrumbs" />
       <h1
-        v-if="!isMobile && !isTablet"
-        :key="titleKey"
-        class="text-center text-6xl max-tablet:text-5xl max-mobile:text-3xl uppercase title-animate"
-        v-text="title"
+          v-if="!isMobile && !isTablet"
+          :key="titleKey"
+          class="text-center text-6xl max-tablet:text-5xl max-mobile:text-3xl uppercase title-animate"
+          v-text="title"
       />
     </div>
-
     <h1
-      v-if="isMobile || isTablet"
-      ref="titleRef"
-      class="mt-[30px] text-center text-6xl max-tablet:text-5xl max-mobile:text-3xl uppercase title-animate"
-      v-text="title"
+        v-if="isMobile || isTablet"
+        ref="titleRef"
+        class="mt-[30px] text-center text-6xl max-tablet:text-5xl max-mobile:text-3xl uppercase title-animate"
+        v-text="title"
     />
 
     <div
-      v-if="currentCategory"
-      class="flex justify-center gap-x-5 mt-[15px] mb-[25px]"
+        v-if="currentCategory"
+        class="flex justify-center gap-x-5 mt-[15px] mb-[25px]"
     >
       <UiButton
-        v-for="(sub_menu, index_sub) in menu.childrens"
-        :key="index_sub"
-        :label="sub_menu.name"
-        :size="subButtonSize"
-        :is-select-color="localePath(`/models${sub_menu.url}`) === localePath(route.path)"
-        :is-select-color-hover="localePath(`/models${sub_menu.url}`) !== localePath(route.path)"
-        :to="localePath(`/models${sub_menu.url}`)"
+          v-for="(sub_menu, index_sub) in menu.childrens"
+          :key="index_sub"
+          :label="sub_menu.name"
+          :size="subButtonSize"
+          :is-select-color="localePath(`/models${sub_menu.url}`) === localePath(route.path)"
+          :is-select-color-hover="localePath(`/models${sub_menu.url}`) !== localePath(route.path)"
+          :to="localePath(`/models${sub_menu.url}`)"
       />
     </div>
     <UiAccordionGroup
-      v-else
-      class="flex justify-center gap-x-[40px] mt-6 max-mobile:mt-[15px] min-h-[100px] max-mobile:min-h-fit max-mobile:mb-6"
+        v-else
+        class="flex justify-center gap-x-[40px] mt-6 max-mobile:mt-[15px] min-h-[100px] max-mobile:min-h-fit max-mobile:mb-6"
     >
       <UiAccordion
-        v-for="(menu_item, index) in menu.childrens"
-        :id="index"
-        :key="index"
-        :is-absolute="!isMobile"
-        :has-arrow="menu_item.childrens ? !isMobile ? 'lg' : 'sm' : false"
-        :label="menu_item.name"
+          v-for="(menu_item, index) in menu.childrens"
+          :id="index"
+          :key="index"
+          :is-absolute="!isMobile"
+          :has-arrow="menu_item.childrens ? !isMobile ? 'lg' : 'sm' : false"
+          :label="menu_item.name"
       >
         <template #label="{ label, isOpen }">
           <UiButton
-            :size="buttonSize"
-            is-uppercase
-            :label="label"
-            :is-underline="isOpen"
-            :is-underline-hover="!isOpen"
-            :to="localePath(`/models${menu_item.url}`)"
+              :size="buttonSize"
+              is-uppercase
+              :label="label"
+              :is-underline="isOpen"
+              :is-underline-hover="!isOpen"
+              :to="localePath(`/models${menu_item.url}`)"
           />
         </template>
         <template #content>
           <div class="flex flex-col items-start gap-y-1 mt-2">
             <UiButton
-              v-for="(sub_menu, index_sub) in menu_item.childrens"
-              :key="index_sub"
-              :label="sub_menu.name"
-              :size="subButtonSize"
-              :to="localePath(`/models${sub_menu.url}`)"
+                v-for="(sub_menu, index_sub) in menu_item.childrens"
+                :key="index_sub"
+                :label="sub_menu.name"
+                :size="subButtonSize"
+                :to="localePath(`/models${sub_menu.url}`)"
             />
           </div>
         </template>
       </UiAccordion>
     </UiAccordionGroup>
 
-    <div class="h-full w-full flex justify-center">
-      <Catalog :models="models" />
+    <div class="h-full w-full flex flex-col justify-center">
+      <Catalog :models="arrayModels">
+        <div v-show="!allModelsLoaded" ref="loadTrigger" class="flex justify-center items-center mt-8 h-[300px]">
+          <UiSpinner />
+        </div>
+      </Catalog>
     </div>
   </div>
 </template>

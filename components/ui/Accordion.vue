@@ -71,7 +71,7 @@
   const emit = defineEmits(['toggle']);
 
   const props = withDefaults(defineProps<{
-    id?: number
+    id?: string
     label: string
     nested?: any[]
     hasArrow?: 'sm' | 'lg' | boolean

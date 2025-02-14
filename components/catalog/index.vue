@@ -51,7 +51,7 @@
 </script>
 
 <template>
-  <div class="catalog">
+  <div v-if="models" class="catalog">
     <div class="catalog__container">
       <div
         v-for="(row, index_row) in filteredItems"
@@ -65,6 +65,7 @@
           :index="index_item"
         />
       </div>
+      <slot />
     </div>
   </div>
 </template>
