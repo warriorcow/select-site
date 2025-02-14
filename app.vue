@@ -21,6 +21,7 @@
       method: 'post',
       pick: ['token']
     });
+
     setToken(data.value.token);
     await fetchMenu();
   }

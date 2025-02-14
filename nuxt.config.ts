@@ -4,9 +4,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiUrl: process.env.API_URL,
-      username: process.env.USERNAME,
-      password: process.env.PASSWORD,
-    },
+      username: process.env.USERNAME_JWT,
+      password: process.env.PASSWORD_JWT,
+    }
   },
 
   i18n: {
@@ -85,7 +85,5 @@ export default defineNuxtConfig({
       tablet: 600,
       mobile: 321,
     }
-  },
-
-  compatibilityDate: '2025-01-30'
+  }
 });
