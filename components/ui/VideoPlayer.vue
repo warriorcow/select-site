@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { vueVimeoPlayer } from 'vue-vimeo-player';
 
+  const { activeTabIndex } = storeToRefs(useProfileStore());
+
   const props = defineProps<{
     idVideo?: string
     cover: string
@@ -33,9 +35,12 @@ import { vueVimeoPlayer } from 'vue-vimeo-player';
     isPlayedVideo.value = true;
     setTimeout(() => {
       onPlay();
-    }, 200)
-
+    }, 200);
   }
+
+  watch(() => activeTabIndex.value, () => {
+    onPause();
+  })
 </script>
 
 <template>
