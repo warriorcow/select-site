@@ -85,5 +85,7 @@ export default defineNuxtConfig({
       tablet: 600,
       mobile: 321,
     }
-  }
+  },
+
+  compatibilityDate: '2025-02-14'
 });

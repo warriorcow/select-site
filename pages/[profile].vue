@@ -111,9 +111,14 @@
     }, 500);
   });
 
+  onUnmounted(() => {
+    setActivePortfolioIndex(0);
+    setActiveTabIndex(null);
+  });
+
   function clickPortfolioButton(index: number): void {
-    if (index === activePortfolioIndex.value) {
-      detailCategoryRef.value?.openTab(index); // Вызов функции из ребенк
+    if (index == activePortfolioIndex.value) {
+      detailCategoryRef.value?.openTab(index); // Вызов функции из ребенкa
       detailCategoryRef.value?.rootEl.scrollIntoView({ block: 'start', behavior: 'smooth' });
     } else {
       setActivePortfolioIndex(index);
