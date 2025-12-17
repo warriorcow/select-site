@@ -13,7 +13,7 @@ export const useProfileStore = defineStore('profile', {
     isAnimatedTab: false,
     profileData: null,
     activeTabIndex: null,
-    transitionTime: 0.4
+    transitionTime: .4
   }),
   getters: {
     getShortName: state => {

@@ -1,133 +1,154 @@
 <script setup lang="ts">
-  import gsap from 'gsap';
-  import { ref } from 'vue';
-  import TabCard from '~/components/detail/tabCard.vue';
-  import TabContent from '~/components/detail/tabContent.vue';
+import gsap from 'gsap';
+import { ref } from 'vue';
+import TabCard from '~/components/detail/tabCard.vue';
+import TabContent from '~/components/detail/tabContent.vue';
 
-  const props = defineProps<{
-    params: any
-  }>();
+const props = defineProps<{
+  params: any
+}>();
 
-  const { isMobile } = storeToRefs(useWindowStore());
-  const { activeTabIndex, isAnimatedTab, transitionTime } = storeToRefs(useProfileStore());
+const { isMobile } = storeToRefs(useWindowStore());
+const { activeTabIndex, isAnimatedTab, transitionTime } = storeToRefs(useProfileStore());
 
-  const tabsContentRef = ref<HTMLElement[]>([]);
+const tabsContentRef = ref<HTMLElement[]>([]);
+const contentContainerRef = ref<HTMLElement>(); // Добавляем ref для контейнера контента
 
-  const isActiveTab = (index: string): boolean => activeTabIndex.value === +index;
+const isActiveTab = (index: string): boolean => activeTabIndex.value === +index;
 
-  function toggleTab(index: number): void {
-    if (isAnimatedTab.value) return;
-    if (activeTabIndex.value === index) {
-      closeTab();
-    } else {
-      openTab(index);
-    }
+function toggleTab(index: number): void {
+  if (isAnimatedTab.value) return;
+  if (activeTabIndex.value === index) {
+    closeTab();
+  } else {
+    openTab(index);
+  }
+}
+
+watch(() => activeTabIndex.value, (index) => {
+  if (index === null) return;
+  setTimeout(() => {
+    openTab(index);
+    scrollToContent(index)
+  }, 100);
+
+}, {
+  immediate: true
+});
+
+function openTab(index: number): void {
+  if (isAnimatedTab.value) return;
+
+  isAnimatedTab.value = true;
+  const currentTab = tabsContentRef.value[index];
+  const otherTabs = tabsContentRef.value.filter(tab => tab !== currentTab);
+
+  function hasVisibleTab(): boolean {
+    return tabsContentRef.value.some(tab => (tab as HTMLElement).offsetHeight > 0);
   }
 
-  watch(() => activeTabIndex.value, (index) => {
-    if (index === null) return;
-    setTimeout(() => {
-      openTab(index);
-    }, 100);
-
-  }, {
-    immediate: true
-  });
-
-  function openTab(index: number): void {
-    if (isAnimatedTab.value) return;
-
-    isAnimatedTab.value = true;
-    const currentTab = tabsContentRef.value[index];
-    const otherTabs = tabsContentRef.value.filter(tab => tab !== currentTab);
-    function hasVisibleTab(): boolean {
-      return tabsContentRef.value.some(tab => (tab as HTMLElement).offsetHeight > 0);
-    }
-
-    if (hasVisibleTab()) {
-      gsap.to(otherTabs, {
-        duration: transitionTime.value,
-        height: 0,
-        onComplete: () => {
-          gsap.to(currentTab, {
-            duration: transitionTime.value,
-            height: currentTab.scrollHeight,
-            onComplete: () => {
-              setTimeout(() => {
-                isAnimatedTab.value = false;
-              }, 100);
-              gsap.to(currentTab, {
-                height: 'auto'
-              });
-            }
-          });
-        }
-      });
-    } else {
-      gsap.to(currentTab, {
-        duration: transitionTime.value,
-        height: currentTab.scrollHeight,
-        onComplete: () => {
-          gsap.to(currentTab, {
-            height: 'auto',
-            onComplete: () => {
-              isAnimatedTab.value = false;
-            }
-          });
-        }
-      });
-    }
-
-    activeTabIndex.value = index;
-  }
-
-  function closeTab(): void {
-    if (isAnimatedTab.value) return;
-
-    isAnimatedTab.value = true;
-    const currentTab = tabsContentRef.value[activeTabIndex.value!];
-
-    gsap.to(currentTab, {
+  if (hasVisibleTab()) {
+    gsap.to(otherTabs, {
       duration: transitionTime.value,
       height: 0,
       onComplete: () => {
-        activeTabIndex.value = null;
-        isAnimatedTab.value = false;
+        gsap.to(currentTab, {
+          duration: transitionTime.value,
+          height: currentTab.scrollHeight,
+          onComplete: () => {
+            setTimeout(() => {
+              isAnimatedTab.value = false;
+            }, 100);
+            gsap.to(currentTab, {
+              height: 'auto'
+            });
+          }
+        });
+      }
+    });
+  } else {
+    gsap.to(currentTab, {
+      duration: transitionTime.value,
+      height: currentTab.scrollHeight,
+      onComplete: () => {
+        gsap.to(currentTab, {
+          height: 'auto',
+          onComplete: () => {
+            isAnimatedTab.value = false;
+          }
+        });
       }
     });
   }
 
-  function onTabClick(index: number): void {
-    toggleTab(index);
-  }
+  activeTabIndex.value = index;
+}
+
+function closeTab(): void {
+  if (isAnimatedTab.value) return;
+
+  isAnimatedTab.value = true;
+  const currentTab = tabsContentRef.value[activeTabIndex.value!];
+
+  gsap.to(currentTab, {
+    duration: transitionTime.value,
+    height: 0,
+    onComplete: () => {
+      activeTabIndex.value = null;
+      isAnimatedTab.value = false;
+    }
+  });
+}
+
+function scrollToContent(tabIndex: number): void {
+  nextTick(() => {
+    const contentElement = tabsContentRef.value[tabIndex];
+    if (!contentElement) return;
+
+    // Рассчитываем общее время анимации + небольшая задержка
+    const scrollDelay = transitionTime.value * 1050;
+
+    setTimeout(() => {
+      contentElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest'
+      });
+    }, scrollDelay);
+  });
+}
+
+function onTabClick(index: number): void {
+  toggleTab(index);
+}
 </script>
 
 <template>
-  <div class="tabs">
+  <div class="tabs" ref="contentContainerRef">
     <div class="flex w-full max-mobile:flex-col justify-center gap-x-[15px] mb-[35px] max-mobile:mb-0 max-mobile:gap-y-[20px]">
       <div
-        v-for="(item, index) in props.params"
-        :key="index"
+          v-for="(item, index) in props.params"
+          :key="index"
       >
         <TabCard
-          :name="item.name"
-          :image="item.cover"
-          :is-active="isActiveTab(index.toString())"
-          :class="[
+            :name="item.name"
+            :image="item.cover"
+            :is-active="isActiveTab(index.toString())"
+            :class="[
             isAnimatedTab && 'pointer-events-none'
           ]"
-          @click="onTabClick(index)"
+            @click="onTabClick(index)"
         />
         <div
-          v-if="isMobile"
-          ref="tabsContentRef"
-          class="h-0 overflow-hidden"
+            v-if="isMobile"
+            ref="tabsContentRef"
+            class="h-0 overflow-hidden"
         >
           <TabContent
-            :is-active="isActiveTab(index.toString())"
-            :type="item.type"
-            :items="item.items"
-            class="tab-scroll-area max-mobile:pt-[30px] max-mobile:mb-[15px]"
+              :is-active="isActiveTab(index.toString())"
+              :type="item.type"
+              :items="item.items"
+              class="tab-scroll-area max-mobile:pt-[30px] max-mobile:mb-[15px]"
           />
         </div>
       </div>
@@ -135,22 +156,21 @@
 
     <div v-if="!isMobile">
       <div
-        v-for="(item, index) in props.params"
-        :key="index"
-        ref="tabsContentRef"
-        class="h-0 overflow-hidden"
+          v-for="(item, index) in props.params"
+          :key="index"
+          ref="tabsContentRef"
+          class="h-0 overflow-hidden"
       >
         <TabContent
-          class="tab-scroll-area"
-          :is-active="isActiveTab(index.toString())"
-          :type="item.type"
-          :items="item.items"
+            class="tab-scroll-area"
+            :is-active="isActiveTab(index.toString())"
+            :type="item.type"
+            :items="item.items"
         />
       </div>
     </div>
   </div>
 </template>
-
 
 <style scoped lang="scss">
 .tabs {

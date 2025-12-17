@@ -6,9 +6,11 @@ export const useMenuStore = defineStore('menu', {
   state: (): {
     isMenuOpen: boolean;
     menu: any | null;
+    bookingItem: any | null; // Новое поле для booking элемента
   } => ({
     isMenuOpen: false,
-    menu: null
+    menu: null,
+    bookingItem: null
   }),
   actions: {
     async fetchMenu() {
@@ -23,9 +25,27 @@ export const useMenuStore = defineStore('menu', {
           key: route.path,
           method: 'get',
         });
-
         if (data.value) {
-          this.menu = buildTree(data.value, ['title', 'url', 'slug']);
+          // Ищем элемент с acf.slug === 'booking'
+          const bookingItemIndex = data.value.findIndex(item =>
+            item.acf && item.acf.slug === 'booking'
+          );
+
+          if (bookingItemIndex !== -1) {
+            // Сохраняем booking элемент отдельно
+            this.bookingItem = data.value[bookingItemIndex];
+
+            // Удаляем его из массива перед построением дерева
+            const menuItems = [...data.value];
+            menuItems.splice(bookingItemIndex, 1);
+
+            // Строим дерево из остальных элементов
+            this.menu = buildTree(menuItems, ['title', 'url', 'slug']);
+          } else {
+            // Если booking элемента нет, просто строим дерево из всех элементов
+            this.menu = buildTree(data.value, ['title', 'url', 'slug']);
+            this.bookingItem = null;
+          }
         }
 
         return refresh;

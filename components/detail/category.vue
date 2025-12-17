@@ -184,24 +184,26 @@
               class="overflow-hidden h-0"
             >
               <UiFancybox class="px-2.5">
-                <div class="grid grid-cols-2 mx-auto gap-2.5 max-w-[915px] pt-[50px] max-mobile:pt-[30px]">
+                <div class="flex flex-wrap justify-center mx-auto gap-2.5 mt-2.5 max-w-[915px]">
                   <UiPhotoPortfolio
                     v-for="(img, index_photo) in item.items.slice(0, 4)"
                     :key="index_photo"
                     :src="img"
                     :index="index"
+                    class="w-full max-w-[calc(50%-10px)]"
                   />
                 </div>
                 <div
                   ref="moreImagesRef"
                   class="overflow-hidden h-0"
                 >
-                  <div class="grid grid-cols-2 mx-auto gap-2.5 mt-2.5 max-w-[915px]">
+                  <div class="flex flex-wrap justify-center mx-auto gap-2.5 mt-2.5 max-w-[915px]">
                     <UiPhotoPortfolio
                       v-for="(img, index_nested_photo) in item.items.slice(4)"
                       :key="index_nested_photo"
                       :src="img"
                       :index="index"
+                      class="w-full max-w-[calc(50%-10px)]"
                     />
                   </div>
                 </div>

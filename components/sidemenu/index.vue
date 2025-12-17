@@ -12,6 +12,7 @@
 </script>
 
 <template>
+
   <UiSidedrawer>
     <template
       v-for="(item, index) in menu"
@@ -81,7 +82,7 @@
         to="https://www.instagram.com/selectmgmt"
       >
         <SvgoInstagramIcon class="!w-6 !h-6 block !mb-0" />
-        @select_mgmt
+        @selectmgmt
       </NuxtLink>
     </div>
   </UiSidedrawer>

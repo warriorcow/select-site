@@ -44,7 +44,8 @@ export default defineI18nConfig(() => ({
             waist: 'Waist',
             hips: 'Hips',
             clothingSize: 'Clothing Size',
-            shoeSize: 'Shoe Size'
+            shoeSize: 'Shoe Size',
+            height: 'Height'
           },
           third: {
             title: 'Portfolio and Experience',
@@ -122,7 +123,7 @@ export default defineI18nConfig(() => ({
             see_other_models: 'Back to the Models Board'
           },
           characteristic: {
-            title: 'Model Parameters',
+            title: 'Model’s measurements',
             height: 'Height',
             bust: 'Bust',
             shoes: 'Shoes',
@@ -211,12 +212,13 @@ export default defineI18nConfig(() => ({
             waist: 'Талия',
             hips: 'Бёдра',
             clothingSize: 'Размер одежды',
-            shoeSize: 'Размер обуви'
+            shoeSize: 'Размер обуви',
+            height: 'Рост'
           },
           third: {
             title: 'Портфолио и опыт',
             linkToPortfolio: 'Ссылка на портфолио',
-            linkToSnaps: 'Ссылка на снэпы',
+            linkToSnaps: 'Ссылка на снепы',
             about: 'О вашем опыте',
             aboutPlaceholder: 'Расскажите о вашем опыте в моделинге'
           }
@@ -280,7 +282,7 @@ export default defineI18nConfig(() => ({
             portfolio: 'Портфолио',
             covers: 'Обложки',
             shows: 'Шоу',
-            digitals: 'Снэпы',
+            digitals: 'Снепы',
             videos: 'Видео',
             instagram: 'Instagram',
             view_portfolio: 'Посмотреть',

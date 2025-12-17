@@ -30,6 +30,7 @@ const createdSlug = pull(Object.values(pick(route.params, ['catalog', 'category'
 const title = `${categories.value[route.params.catalog].name} ${route.params.category ? findBySlug(categories.value[route.params.catalog], createdSlug).name : ''}`;
 const catalogCategorySlug = pull(Object.values(route.params), '').join('-');
 const categoryId = findBySlug(categories.value[route.params.catalog], catalogCategorySlug).id;
+const category = findBySlug(categories.value[route.params.catalog], catalogCategorySlug);
 
 const getBreadcrumbs = computed(() => {
   return [
@@ -74,12 +75,21 @@ const menu = computed((): Category => {
   return findBySlug(categories.value[route.params.catalog], createdSlug);
 });
 
+if (category?.childrens) {
+  const firstChildUrl = Object.values(category.childrens)[0]?.url;
+
+  if (firstChildUrl) {
+    const basePath = immediateLocale.value === 'en' ? '' : `/${immediateLocale.value}`;
+    navigateTo(`${basePath}/models${firstChildUrl}`);
+  }
+}
+
 const hasType = computed((): boolean => {
   return !!route.params.type;
 });
 
 const allModelsLoaded = computed((): boolean => {
-  return Number(totalPages.value) === arrayModels.value.length
+  return Number(totalPages.value) <= arrayModels.value.length
 })
 
 const getSEO = computed(() => {
@@ -118,6 +128,7 @@ const getSEO = computed(() => {
 
 onMounted(() => {
   setTimeout(() => {
+    fetchModels()
     observer.value = new IntersectionObserver(
         async ([entry]) => {
           if (entry.isIntersecting) {
@@ -153,8 +164,6 @@ watchEffect(() => {
   });
 });
 
-await fetchModels();
-
 async function fetchModels() {
   if (isLoading.value) return;
   if (observer.value && loadTrigger.value && allModelsLoaded.value) {
@@ -181,7 +190,7 @@ async function fetchModels() {
   offsetPage.value += PER_PAGE_COUNT;
   isLoading.value = false;
 }
-
+await fetchModels();
 </script>
 
 <template>
@@ -251,7 +260,6 @@ async function fetchModels() {
         </template>
       </UiAccordion>
     </UiAccordionGroup>
-
     <div class="h-full w-full flex flex-col justify-center">
       <Catalog :models="arrayModels">
         <div v-show="!allModelsLoaded" ref="loadTrigger" class="flex justify-center items-center mt-8 h-[300px]">

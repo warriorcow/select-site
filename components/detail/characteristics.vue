@@ -29,7 +29,17 @@
     const localeData = props.params[locale.value];
     const characteristics = {
       ...Object.fromEntries(
-        Object.entries(filteredEmptyParams).map(([key, value]) => [key, `${value} ${locale.value === 'ru' ? 'см' : 'cm'}`])
+          Object.entries(filteredEmptyParams).map(([key, value]) => {
+            const isShoesParam = ['shoes', 'обувь', 'shoe_size'].some(shoeKeyword =>
+                key.toLowerCase().includes(shoeKeyword)
+            );
+
+            if (isShoesParam) {
+              return [key, value];
+            }
+
+            return [key, `${value} ${locale.value === 'ru' ? 'см' : 'cm'}`];
+          })
       )
     };
 

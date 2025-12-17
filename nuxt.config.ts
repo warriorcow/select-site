@@ -18,7 +18,7 @@ export default defineNuxtConfig({
     ],
     defaultLocale: 'en',
     vueI18n: './i18n.config.ts',
-    baseUrl: 'https://my-nuxt-app.com'
+    detectBrowserLanguage: false
   },
 
   app: {

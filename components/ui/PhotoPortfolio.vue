@@ -19,13 +19,14 @@
 </script>
 
 <template>
-  <a
+  <div
     ref="cardRef"
     data-fancybox="gallery"
-    :href="src"
+    :data-src="src"
     class="opacity-0
       duration-700
-      transition"
+      transition
+      cursor-pointer"
     :class="[
       isBeenShown && '!opacity-100'
     ]"
@@ -36,7 +37,7 @@
       alt=""
       class="h-[clamp(11.375rem,4.0536rem+36.6071vw,37rem)] w-full object-cover object-top"
     >
-  </a>
+  </div>
 </template>
 
 <style scoped lang="scss">

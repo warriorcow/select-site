@@ -2,7 +2,7 @@
   import { useCallbackModalStore } from '~/stores/callback-modal';
 
   const route = useRoute();
-  const { isVisible, isSubmitted, formState, v$, hasError } = storeToRefs(useCallbackModalStore());
+  const { isVisible, isSubmitted, formState, v$, hasError, isSubmitting } = storeToRefs(useCallbackModalStore());
   const { closeCallbackModal, sendForm, resetForm } = useCallbackModalStore();
 
   watch(() => route.fullPath, () => {
@@ -166,6 +166,12 @@
                       :label="$t('becomeAModel.form.second.shoeSize')"
                       @blur="v$.shoeSize.$touch"
                     />
+                    <UiInput
+                        v-model="formState.height"
+                        :invalid="v$.height.$error"
+                        :label="$t('becomeAModel.form.second.height')"
+                        @blur="v$.height.$touch"
+                    />
                   </div>
                 </fieldset>
 
@@ -223,14 +229,22 @@
                     (!v$.$invalid && phoneIsValid) && 'bg-secondary'
                   ]"
                   @click="sendForm"
-                  v-text="!hasError ? $t('becomeAModel.footer.submitButton.text') : $t('becomeAModel.footer.submitButton.error')"
-                />
+                >
+                  <UiSpinner
+                    v-if="isSubmitting"
+                    is-adaptive
+                    class="absolute left-[23px]"
+                  />
+                  <span v-else>
+                    {{!hasError ? $t('becomeAModel.footer.submitButton.text') : $t('becomeAModel.footer.submitButton.error')}}
+                  </span>
+                </button>
               </div>
             </div>
           </div>
           <div
             v-else
-            class="w-full max-w-[560px] py-[90px] px-5 bg-primary relative z-[60]"
+            class="w-full max-w-[560px] py-[90px] m-auto px-5 bg-primary relative z-[60]"
           >
             <div class="max-w-[360px] mx-auto text-center">
               <div

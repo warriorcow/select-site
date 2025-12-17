@@ -57,7 +57,6 @@
           <img
             class="card__cover"
             :src="params.acf.preview_image[0]?.sizes.large"
-            :alt="getFullName"
           >
           <img
             v-if="params.acf.preview_image[1]"
@@ -67,7 +66,6 @@
               isHovered && 'opacity-100 !scale-110',
             ]"
             :src="params.acf.preview_image[1]?.sizes.large"
-            :alt="getFullName"
           >
         </template>
         <template v-else>

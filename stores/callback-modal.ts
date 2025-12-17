@@ -9,6 +9,7 @@ export const useCallbackModalStore = defineStore('callback-modal', () => {
   const isVisible = ref(false);
   const hasError = ref(false);
   const isSubmitted = ref(false);
+  const isSubmitting = ref(false);
   const formState = ref({
     fullName: '',
     phone: '',
@@ -21,6 +22,7 @@ export const useCallbackModalStore = defineStore('callback-modal', () => {
     bust: '',
     waist: '',
     hips: '',
+    height: '',
     clothingSize: '',
     shoeSize: '',
     portfolio: '',
@@ -40,6 +42,7 @@ export const useCallbackModalStore = defineStore('callback-modal', () => {
     bust: { required, numeric },
     waist: { required, numeric },
     hips: { required, numeric },
+    height: { required, numeric },
     clothingSize: { required },
     shoeSize: { required, numeric },
     portfolio: { required },
@@ -68,30 +71,44 @@ export const useCallbackModalStore = defineStore('callback-modal', () => {
   };
 
   const sendForm = async () => {
+    if (isSubmitting.value) return;
+
     hasError.value = false;
-    if (!v$.value.$invalid) {
-      try {
-        await useApi('/wp-admin/admin-ajax.php', {
-          method: 'post',
-          body: {
-            ...formState.value,
-            action: 'sendform',
-            lang: locale.value
-          },
-          onResponse() {
-            isSubmitted.value = true;
-          },
-        });
-      } catch (e) {
-        hasError.value = true;
-        console.error(`Не удалось отправить форму. ${e}`);
-      }
+
+    const isValid = await v$.value.$validate();
+    if (!isValid) return;
+
+    try {
+      isSubmitting.value = true;
+
+      const formData = new FormData();
+
+      Object.entries(formState.value).forEach(([key, value]) => {
+        formData.append(key, value ?? '');
+      });
+
+      formData.append('action', 'sendform');
+      formData.append('lang', locale.value);
+
+      await useApi('/wp-admin/admin-ajax.php', {
+        method: 'post',
+        body: formData,
+      });
+
+      isSubmitted.value = true;
+    } catch (e) {
+      hasError.value = true;
+      console.error('Не удалось отправить форму', e);
+    } finally {
+      isSubmitting.value = false;
     }
   };
 
   const resetForm = () => {
     isSubmitted.value = false;
     isVisible.value = false;
+    isSubmitting.value = false;
+    hasError.value = false;
     formState.value = {
       fullName: '',
       phone: '',
@@ -108,7 +125,8 @@ export const useCallbackModalStore = defineStore('callback-modal', () => {
       shoeSize: '',
       portfolio: '',
       snaps: '',
-      about: ''
+      about: '',
+      height: ''
     };
     v$.value.$reset();
   };
@@ -116,6 +134,7 @@ export const useCallbackModalStore = defineStore('callback-modal', () => {
   return {
     isVisible,
     isSubmitted,
+    isSubmitting,
     formState,
     v$,
     toggleCallbackModal,
