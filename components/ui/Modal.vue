@@ -218,7 +218,7 @@
                   {{ $t('becomeAModel.footer.policyText') }}
                   <NuxtLink
                     class="underline"
-                    to="/policy"
+                    to="/personal-data"
                   >
                     {{ $t('becomeAModel.footer.policyLink') }}
                   </NuxtLink>

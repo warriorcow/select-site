@@ -92,6 +92,12 @@ export default defineI18nConfig(() => ({
             2: 'About us'
           }
         },
+        personalData: {
+          breadcrumbs: {
+            1: 'Home',
+            2: 'Personal Data Consent'
+          }
+        },
         policy: {
           breadcrumbs: {
             1: 'Home',
@@ -140,6 +146,11 @@ export default defineI18nConfig(() => ({
             2: 'Category'
           }
         }
+      },
+      cookieBanner: {
+        text: 'We use cookies necessary for the stable, efficient and secure operation of the Site.',
+        learnMore: 'Learn more',
+        accept: 'Accept'
       },
       seo: {
         main: {
@@ -260,6 +271,12 @@ export default defineI18nConfig(() => ({
             2: 'О нас'
           }
         },
+        personalData: {
+          breadcrumbs: {
+            1: 'Главная',
+            2: 'Cогласие на обработку персональных данных'
+          }
+        },
         policy: {
           breadcrumbs: {
             1: 'Главная',
@@ -308,6 +325,11 @@ export default defineI18nConfig(() => ({
             2: 'Наши модели и таланты'
           }
         }
+      },
+      cookieBanner: {
+        text: 'Мы используем идентификационные файлы, необходимые для стабильной, эффективной и безопасной работы Сайта.',
+        learnMore: 'Подробнее',
+        accept: 'Принять'
       },
       seo: {
         main: {

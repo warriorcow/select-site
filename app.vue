@@ -99,6 +99,7 @@
     </NuxtLayout>
   </Transition>
   <UiModal />
+  <UiCookieBanner />
 </template>
 
 <style lang="scss">
