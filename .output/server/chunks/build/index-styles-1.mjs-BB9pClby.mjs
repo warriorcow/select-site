@@ -1,0 +1,4 @@
+const index_vue_vue_type_style_index_0_scoped_032f1bcc_lang = ".footer[data-v-032f1bcc]{align-items:center;-moz-column-gap:50px;column-gap:50px;display:flex;justify-content:space-between;padding:25px 30px;width:100%}@media not all and (min-width:1201px){.footer[data-v-032f1bcc]{padding:20px 40px}}@media not all and (min-width:600px){.footer[data-v-032f1bcc]{padding:10px}}.footer__copyright[data-v-032f1bcc]{font-size:14px;line-height:18px;--tw-text-opacity:1;color:rgb(144 144 144/var(--tw-text-opacity,1))}@media not all and (min-width:1201px){.footer__copyright[data-v-032f1bcc]{font-size:12px;line-height:16px}}@media not all and (min-width:600px){.footer__copyright[data-v-032f1bcc]{font-size:10px;line-height:14px}}";
+
+export { index_vue_vue_type_style_index_0_scoped_032f1bcc_lang as i };
+//# sourceMappingURL=index-styles-1.mjs-BB9pClby.mjs.map

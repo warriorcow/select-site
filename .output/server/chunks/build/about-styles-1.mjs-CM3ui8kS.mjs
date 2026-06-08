@@ -1,0 +1,4 @@
+const about_vue_vue_type_style_index_0_lang = ".about{margin-left:auto;margin-right:auto;margin-top:160px;max-width:610px}@media not all and (min-width:600px){.about{margin-top:2.5rem}}.about a{text-decoration-line:underline}.about h1,.about h2{font-size:32px;line-height:38px;margin-bottom:.75rem;text-transform:uppercase}@media not all and (min-width:1201px){.about h1,.about h2{font-size:25px;line-height:28px}}@media not all and (min-width:600px){.about h1,.about h2{font-size:22px;line-height:24px;margin-bottom:1.25rem}}.about p{font-size:16px;line-height:20px;margin-bottom:1rem}@media not all and (min-width:1201px){.about p{font-size:14px;line-height:18px}}@media not all and (min-width:600px){.about p{font-size:12px;line-height:16px}}";
+
+export { about_vue_vue_type_style_index_0_lang as a };
+//# sourceMappingURL=about-styles-1.mjs-CM3ui8kS.mjs.map
