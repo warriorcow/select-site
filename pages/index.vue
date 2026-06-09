@@ -22,15 +22,15 @@
   const videoRef: Ref<HTMLVideoElement | null> = ref(null);
 
   const hasVideo = computed(() => {
-    return !!data.value.acf.video?.url;
+    return !!data.value?.acf?.video?.url;
   });
 
   const videoUrl = computed(() => {
-    if (isMobile && data.value.acf.video_mobile?.url) {
+    if (isMobile && data.value?.acf?.video_mobile?.url) {
       return data.value.acf.video_mobile?.url;
     }
 
-    return data.value.acf.video?.url;
+    return data.value?.acf?.video?.url;
   });
 
   onMounted(() => {
@@ -40,7 +40,7 @@
     }, 0);
   });
 
-  useGetSeoData(data.value);
+  if (data.value) useGetSeoData(data.value);
 </script>
 
 <template>

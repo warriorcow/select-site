@@ -22,8 +22,10 @@
       pick: ['token']
     });
 
-    setToken(data.value.token);
-    await fetchMenu();
+    if (data.value?.token) {
+      setToken(data.value.token);
+      await fetchMenu();
+    }
   }
 
 
