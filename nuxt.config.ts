@@ -87,5 +87,13 @@ export default defineNuxtConfig({
     }
   },
 
+  nitro: {
+    externals: {
+      // Принудительно вбандливаем пакеты, которые Nitro оставляет внешними,
+      // но на продакшен-сервере могут отсутствовать
+      inline: ['vue-demi', '@vuelidate/core', '@vuelidate/validators']
+    }
+  },
+
   compatibilityDate: '2025-02-14'
 });

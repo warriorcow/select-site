@@ -18,10 +18,8 @@ import '@unhead/ssr';
 import 'unhead';
 import '@unhead/shared';
 import 'vue-router';
-import '@vuelidate/core';
 import 'vue-the-mask';
 import 'vue-imask';
-import '@vuelidate/validators';
 import './arrow-Bb7Shf0I.mjs';
 
 const _sfc_main$3 = /* @__PURE__ */ defineComponent({

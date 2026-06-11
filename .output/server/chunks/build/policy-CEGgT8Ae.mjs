@@ -16,10 +16,8 @@ import '@unhead/ssr';
 import 'unhead';
 import '@unhead/shared';
 import 'vue-router';
-import '@vuelidate/core';
 import 'vue-the-mask';
 import 'vue-imask';
-import '@vuelidate/validators';
 
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "policy",

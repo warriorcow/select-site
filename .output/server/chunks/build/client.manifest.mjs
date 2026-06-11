@@ -34,12 +34,23 @@ const client_manifest = {
     "file": "index.DWe3v-3C.css",
     "src": "_!~{00r}~.js"
   },
-  "_2RQFIuNb.js": {
+  "_BGdhJE65.js": {
     "resourceType": "script",
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "2RQFIuNb.js",
+    "file": "BGdhJE65.js",
+    "name": "_basePickBy",
+    "imports": [
+      "node_modules/nuxt/dist/app/entry.js"
+    ]
+  },
+  "_CVvO3hDU.js": {
+    "resourceType": "script",
+    "module": true,
+    "prefetch": true,
+    "preload": true,
+    "file": "CVvO3hDU.js",
     "name": "index",
     "imports": [
       "node_modules/nuxt/dist/app/entry.js",
@@ -51,74 +62,6 @@ const client_manifest = {
   },
   "index.Ba9AX5U_.css": {
     "file": "index.Ba9AX5U_.css",
-    "resourceType": "style",
-    "prefetch": true,
-    "preload": true
-  },
-  "_C4LiSt8c.js": {
-    "resourceType": "script",
-    "module": true,
-    "prefetch": true,
-    "preload": true,
-    "file": "C4LiSt8c.js",
-    "name": "useGetSeoData",
-    "imports": [
-      "node_modules/nuxt/dist/app/entry.js",
-      "_CqkgI10j.js"
-    ]
-  },
-  "_CJ6RijjK.js": {
-    "resourceType": "script",
-    "module": true,
-    "prefetch": true,
-    "preload": true,
-    "file": "CJ6RijjK.js",
-    "name": "index",
-    "imports": [
-      "_C_xGrjKI.js",
-      "node_modules/nuxt/dist/app/entry.js",
-      "_CqkgI10j.js",
-      "_DO6J8U_e.js",
-      "assets/icons/instagram-icon.svg"
-    ],
-    "css": [
-      "index.DWe3v-3C.css"
-    ]
-  },
-  "index.DWe3v-3C.css": {
-    "file": "index.DWe3v-3C.css",
-    "resourceType": "style",
-    "prefetch": true,
-    "preload": true
-  },
-  "_CVDyKbqc.js": {
-    "resourceType": "script",
-    "module": true,
-    "prefetch": true,
-    "preload": true,
-    "file": "CVDyKbqc.js",
-    "name": "_basePickBy",
-    "imports": [
-      "node_modules/nuxt/dist/app/entry.js"
-    ]
-  },
-  "_C_xGrjKI.js": {
-    "resourceType": "script",
-    "module": true,
-    "prefetch": true,
-    "preload": true,
-    "file": "C_xGrjKI.js",
-    "name": "Logo",
-    "imports": [
-      "node_modules/nuxt/dist/app/entry.js",
-      "_CqkgI10j.js"
-    ],
-    "css": [
-      "Logo.Bxhmf2-n.css"
-    ]
-  },
-  "Logo.Bxhmf2-n.css": {
-    "file": "Logo.Bxhmf2-n.css",
     "resourceType": "style",
     "prefetch": true,
     "preload": true
@@ -140,12 +83,48 @@ const client_manifest = {
     "prefetch": true,
     "preload": true
   },
-  "_DO6J8U_e.js": {
+  "_DB-dVypO.js": {
     "resourceType": "script",
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "DO6J8U_e.js",
+    "file": "DB-dVypO.js",
+    "name": "index",
+    "imports": [
+      "_xMor0W7H.js",
+      "node_modules/nuxt/dist/app/entry.js",
+      "_CqkgI10j.js",
+      "_PYIKWpB9.js",
+      "assets/icons/instagram-icon.svg"
+    ],
+    "css": [
+      "index.DWe3v-3C.css"
+    ]
+  },
+  "index.DWe3v-3C.css": {
+    "file": "index.DWe3v-3C.css",
+    "resourceType": "style",
+    "prefetch": true,
+    "preload": true
+  },
+  "_DxzIfUMI.js": {
+    "resourceType": "script",
+    "module": true,
+    "prefetch": true,
+    "preload": true,
+    "file": "DxzIfUMI.js",
+    "name": "useGetSeoData",
+    "imports": [
+      "node_modules/nuxt/dist/app/entry.js",
+      "_CqkgI10j.js"
+    ]
+  },
+  "_PYIKWpB9.js": {
+    "resourceType": "script",
+    "module": true,
+    "prefetch": true,
+    "preload": true,
+    "file": "PYIKWpB9.js",
     "name": "Accordion",
     "imports": [
       "node_modules/nuxt/dist/app/entry.js",
@@ -158,6 +137,27 @@ const client_manifest = {
   },
   "Accordion.c9DD8nj9.css": {
     "file": "Accordion.c9DD8nj9.css",
+    "resourceType": "style",
+    "prefetch": true,
+    "preload": true
+  },
+  "_xMor0W7H.js": {
+    "resourceType": "script",
+    "module": true,
+    "prefetch": true,
+    "preload": true,
+    "file": "xMor0W7H.js",
+    "name": "Logo",
+    "imports": [
+      "node_modules/nuxt/dist/app/entry.js",
+      "_CqkgI10j.js"
+    ],
+    "css": [
+      "Logo.Bxhmf2-n.css"
+    ]
+  },
+  "Logo.Bxhmf2-n.css": {
+    "file": "Logo.Bxhmf2-n.css",
     "resourceType": "style",
     "prefetch": true,
     "preload": true
@@ -215,7 +215,7 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "C4m0O5mL.js",
+    "file": "Dsw7Zqrg.js",
     "name": "arrow",
     "src": "assets/icons/arrow.svg",
     "isDynamicEntry": true,
@@ -229,7 +229,7 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "TEwSfdgM.js",
+    "file": "C078SK36.js",
     "name": "instagram-icon",
     "src": "assets/icons/instagram-icon.svg",
     "isDynamicEntry": true,
@@ -243,7 +243,7 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "BlxwXwQI.js",
+    "file": "Bxq39qg5.js",
     "name": "play",
     "src": "assets/icons/play.svg",
     "isDynamicEntry": true,
@@ -257,7 +257,7 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "DayFabjJ.js",
+    "file": "DHCVzMe_.js",
     "name": "select-logo",
     "src": "assets/icons/select-logo.svg",
     "isDynamicEntry": true,
@@ -271,7 +271,7 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "BgZrf6l9.js",
+    "file": "CVPfp3Y2.js",
     "name": "theme-picker",
     "src": "assets/icons/theme-picker.svg",
     "isDynamicEntry": true,
@@ -295,16 +295,16 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "Dp9gd6ZE.js",
+    "file": "CWSZu3eZ.js",
     "name": "default",
     "src": "layouts/default.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_CJ6RijjK.js",
+      "_DB-dVypO.js",
       "node_modules/nuxt/dist/app/entry.js",
       "_CqkgI10j.js",
-      "_C_xGrjKI.js",
-      "_DO6J8U_e.js",
+      "_xMor0W7H.js",
+      "_PYIKWpB9.js",
       "assets/icons/arrow.svg",
       "assets/icons/instagram-icon.svg"
     ]
@@ -314,16 +314,16 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "D6ps0qAA.js",
+    "file": "CfFyVNKW.js",
     "name": "main",
     "src": "layouts/main.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_CJ6RijjK.js",
+      "_DB-dVypO.js",
       "node_modules/nuxt/dist/app/entry.js",
       "_CqkgI10j.js",
-      "_C_xGrjKI.js",
-      "_DO6J8U_e.js",
+      "_xMor0W7H.js",
+      "_PYIKWpB9.js",
       "assets/icons/arrow.svg",
       "assets/icons/instagram-icon.svg"
     ]
@@ -333,16 +333,16 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "Deiys1WG.js",
+    "file": "YVmQoABC.js",
     "name": "profile",
     "src": "layouts/profile.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_CJ6RijjK.js",
+      "_DB-dVypO.js",
       "node_modules/nuxt/dist/app/entry.js",
       "_CqkgI10j.js",
-      "_C_xGrjKI.js",
-      "_DO6J8U_e.js",
+      "_xMor0W7H.js",
+      "_PYIKWpB9.js",
       "assets/icons/arrow.svg",
       "assets/icons/instagram-icon.svg"
     ]
@@ -369,7 +369,7 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "BFgIRzeo.js",
+    "file": "CDkz3mEb.js",
     "name": "entry",
     "src": "node_modules/nuxt/dist/app/entry.js",
     "isEntry": true,
@@ -399,18 +399,18 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "eKAFpSic.js",
+    "file": "D3YYGR53.js",
     "name": "_profile_",
     "src": "pages/[profile].vue",
     "isDynamicEntry": true,
     "imports": [
       "node_modules/nuxt/dist/app/entry.js",
-      "_2RQFIuNb.js",
-      "_CVDyKbqc.js",
+      "_CVvO3hDU.js",
+      "_BGdhJE65.js",
       "_CqkgI10j.js",
       "assets/icons/arrow.svg",
       "assets/icons/play.svg",
-      "_C4LiSt8c.js"
+      "_DxzIfUMI.js"
     ],
     "dynamicImports": [
       "node_modules/@fancyapps/ui/dist/index.esm.js"
@@ -430,14 +430,14 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "s09EV59a.js",
+    "file": "pgYkI20Y.js",
     "name": "about",
     "src": "pages/about.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_2RQFIuNb.js",
+      "_CVvO3hDU.js",
       "node_modules/nuxt/dist/app/entry.js",
-      "_C4LiSt8c.js",
+      "_DxzIfUMI.js",
       "_CqkgI10j.js"
     ],
     "css": []
@@ -453,13 +453,13 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "y2J9MyaN.js",
+    "file": "D3Z1jAUk.js",
     "name": "contacts",
     "src": "pages/contacts.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_2RQFIuNb.js",
-      "_C4LiSt8c.js",
+      "_CVvO3hDU.js",
+      "_DxzIfUMI.js",
       "node_modules/nuxt/dist/app/entry.js",
       "_CqkgI10j.js"
     ],
@@ -476,14 +476,14 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "C2tW5Ubg.js",
+    "file": "B1xk_njo.js",
     "name": "index",
     "src": "pages/index.vue",
     "isDynamicEntry": true,
     "imports": [
       "node_modules/nuxt/dist/app/entry.js",
-      "_C_xGrjKI.js",
-      "_C4LiSt8c.js",
+      "_xMor0W7H.js",
+      "_DxzIfUMI.js",
       "_CqkgI10j.js"
     ]
   },
@@ -492,16 +492,16 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "D4E39PKk.js",
+    "file": "DrCEpOXH.js",
     "name": "index",
     "src": "pages/models/[catalog]/[[category]]/[[type]]/index.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_2RQFIuNb.js",
+      "_CVvO3hDU.js",
       "node_modules/nuxt/dist/app/entry.js",
-      "_DO6J8U_e.js",
+      "_PYIKWpB9.js",
       "_CqkgI10j.js",
-      "_CVDyKbqc.js",
+      "_BGdhJE65.js",
       "assets/icons/arrow.svg"
     ],
     "css": []
@@ -517,16 +517,16 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "C7apUO4B.js",
+    "file": "DY-J4dOQ.js",
     "name": "index",
     "src": "pages/models/index.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_2RQFIuNb.js",
+      "_CVvO3hDU.js",
       "node_modules/nuxt/dist/app/entry.js",
-      "_DO6J8U_e.js",
+      "_PYIKWpB9.js",
       "_CqkgI10j.js",
-      "_C4LiSt8c.js",
+      "_DxzIfUMI.js",
       "assets/icons/arrow.svg"
     ],
     "css": []
@@ -542,13 +542,13 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "CMDo5uby.js",
+    "file": "CLgsKZXp.js",
     "name": "personal-data",
     "src": "pages/personal-data.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_2RQFIuNb.js",
-      "_C4LiSt8c.js",
+      "_CVvO3hDU.js",
+      "_DxzIfUMI.js",
       "node_modules/nuxt/dist/app/entry.js",
       "_CqkgI10j.js"
     ],
@@ -565,13 +565,13 @@ const client_manifest = {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "rA9qELpr.js",
+    "file": "LBAlsoO4.js",
     "name": "policy",
     "src": "pages/policy.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_2RQFIuNb.js",
-      "_C4LiSt8c.js",
+      "_CVvO3hDU.js",
+      "_DxzIfUMI.js",
       "node_modules/nuxt/dist/app/entry.js",
       "_CqkgI10j.js"
     ],

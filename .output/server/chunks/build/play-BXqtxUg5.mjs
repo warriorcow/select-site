@@ -14,10 +14,8 @@ import '@unhead/ssr';
 import 'unhead';
 import '@unhead/shared';
 import 'vue-router';
-import '@vuelidate/core';
 import 'vue-the-mask';
 import 'vue-imask';
-import '@vuelidate/validators';
 
 const _hoisted_1 = {
   xmlns: "http://www.w3.org/2000/svg",
